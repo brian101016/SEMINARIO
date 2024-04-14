@@ -1,5 +1,15 @@
 class Persona:
-    def __init__(self, nombre: str, edad: int, genero: str, tipo_sangre: str, nacionalidad: str, color_ojos: str, palabra_favorita: str, esta_casado: bool):
+    def __init__(
+        self,
+        nombre: str,
+        edad: int,
+        genero: str,
+        tipo_sangre: str,
+        nacionalidad: str,
+        color_ojos: str,
+        palabra_favorita: str,
+        esta_casado: bool,
+    ):
         self._nombre = nombre
         self._edad = edad
         self._genero = genero
@@ -10,7 +20,12 @@ class Persona:
         self._esta_casado = esta_casado
 
     def __str__(self):
-        return f"Nombre: {self.nombre}\nEdad: {self.edad}\nGenero: {self.genero}"
+        return (
+            f"\n**************\n"
+            f"Nombre: {self.nombre}\n"
+            f"Edad: {self.edad}\n"
+            f"Genero: {self.genero}"
+        )
 
     def obtener_edad_en_dias(self):
         return self._edad * 365
@@ -92,6 +107,7 @@ class Persona:
 
 # fin
 
+
 # Funciones para llenar los campos mas rapido
 def llenar_nombre():
     while True:
@@ -101,14 +117,16 @@ def llenar_nombre():
         except ValueError:
             print("Ingresa una cadena de texto valida")
 
+
 def llenar_edad():
     while True:
         try:
-            valor = int(input("Nueva edad:"))
+            valor = int(input("Edad:"))
             persona1.edad = valor
             break
         except ValueError:
             print("Ingrese un valor numerico positivo!")
+
 
 def llenar_genero():
     while True:
@@ -116,12 +134,14 @@ def llenar_genero():
             persona1.genero = input("Genero:")
             break
         except ValueError:
-            print("Por favor ingresa un genero valido, las opciones son: Masculino, Femenino y No binario")
+            print(
+                "Por favor ingresa un genero valido, las opciones son: Masculino, Femenino y No binario"
+            )
 
 
 # Lo creamos primero para despues modificarlo
-persona1 = Persona("", -1, "", "O+", "")
-print("Llenar valores:")
+persona1 = Persona("", -1, "", "O+", "", "", "", False)
+print("Llenar valores:\n")
 
 llenar_nombre()
 llenar_edad()
@@ -130,7 +150,7 @@ llenar_genero()
 print(persona1)
 print(f"Edad en dias: {persona1.obtener_edad_en_dias()}")
 
-print("\n### Modificar valores:")
+print("\n### Modificar valores:\n")
 
 llenar_nombre()
 llenar_edad()
