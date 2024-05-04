@@ -8,7 +8,7 @@ Dentro de la carpeta del mismo nombre, podemos encontrar el código para el proy
 
 La aplicación se basa en administrar una base de datos mediante PostreSQL sobre los registros y libros de sacramentos parroquiales básicos.
 
-### Instalar
+# Instalar
 
 1. Una vez tengamos clonado el repositorio, entramos a la carpeta contenedora (SEMINARIO).
 
@@ -32,7 +32,7 @@ La aplicación se basa en administrar una base de datos mediante PostreSQL sobre
 
 10. Después de que se instale ya estarán listos para correr el servidor.
 
-### Ejecutar el servidor
+# Ejecutar el servidor
 
 1. Necesitan acceder mediante consola a la carpeta "SEMINARIO/proyecto_final".
 
@@ -46,7 +46,46 @@ La aplicación se basa en administrar una base de datos mediante PostreSQL sobre
 
 6. Si quieren ver la aplicación, pueden acceder en cualquier navegador con la URL `localhost:8000/`
 
-### Django
+# Crear modelos con Postgres
+
+> NOTA: tenemos que estar dentro de `SEMINARIO/proyecto_final/` y haber activado el **venv**.
+
+1. Crear una app de Django con `django-admin startapp nombre_de_la_app`.
+
+2. Ir al archivo `models.py` dentro de la carpeta que se acaba de crear llamada `SEMINARIO/proyecto_final/<nombre_de_la_app>` para definir los campos del modelo.
+
+3. Para escribir el código de los campos, pueden basarse del siguiente (tutorial de MDN)[https://developer.mozilla.org/es/docs/Learn/Server-side/Django/Models].
+
+   > NOTA: también pueden basarse del proyecto del profe, dentro de la carpeta `SAP/personas/models.py`.
+
+4. Guardar los cambios en el archivo models.py.
+
+5. Ejecutar `python manage.py makemigrations` para crear las migraciones basadas en los cambios en los modelos.
+
+6. Instalar **PostgreSQL** usando `pip install psycopg2`.
+
+7. Crear una base de datos en PostgreSQL utilizando **pgAdmin4** y darle el nombre `proyectoFinal`.
+
+8. En el archivo `settings.py`, configurar la conexión a la base de datos con el objeto DATABASE (línea 80).
+
+9. Le ponen la siguiente información:
+
+   ```
+   DATABASES = {
+      "default": {
+         "ENGINE": "django.db.backends.postgresql_psycopg2",
+         "NAME": "proyectoFinal",
+         "USER": "postgres",
+         "PASSWORD": "admin",
+         "HOST": "localhost",
+         "PORT": "5432",
+      }
+   }
+   ```
+
+10. Ejecutar `python manage.py migrate` para aplicar las migraciones y crear las tablas en la base de datos PostgreSQL.
+
+# Django
 
 Por si no conocen como funciona Django les explico brevemente:
 
