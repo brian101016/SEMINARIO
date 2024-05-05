@@ -3,6 +3,8 @@
 
 <h3>Tabla de usuarios</h3>
 
+<a href="{% url 'nuevo_usuario' %}">Crear nuevo usuario</a>
+
 <form action="{% url 'usuarios' %}" method="post">
   {% csrf_token %}
 

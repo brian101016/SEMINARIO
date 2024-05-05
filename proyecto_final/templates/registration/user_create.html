@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %} {% block content %}
+
+<h1>Nuevo Usuario</h1>
+
+<a href="{% url 'usuarios' %}">Regresar</a>
+
+<form action="{% url 'nuevo_usuario' %}" method="post">
+  {% csrf_token %}
+  
+  {{ form }}
+  
+  <input type="submit" value="Crear usuario" />
+</form>
+
+{% endblock %}
