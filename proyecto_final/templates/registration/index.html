@@ -1,0 +1,48 @@
+{% extends "base_generic.html" %} {% block content %}
+<h1>Pagina de Usuarios</h1>
+
+<h3>Tabla de usuarios</h3>
+
+<form action="{% url 'usuarios' %}" method="post">
+  {% csrf_token %}
+
+  <table>
+    <thead>
+      <th>Nombre</th>
+      <th>Email</th>
+      <th>Permisos</th>
+      <th>Activo?</th>
+      <th>Staff?</th>
+      <th>Super?</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ buscar_usuarios.username }}</td>
+        <td>{{ buscar_usuarios.email }}</td>
+        <td>{{ buscar_usuarios.user_permissions }}</td>
+        <td>{{ buscar_usuarios.is_active }}</td>
+        <td>{{ buscar_usuarios.is_staff }}</td>
+        <td>{{ buscar_usuarios.is_superuser }}</td>
+        <td>
+          <input type="submit" value="Filtrar campos" />
+        </td>
+        <td>
+          <a href="{% url 'usuarios' %}">Limpiar campos</a>
+        </td>
+      </tr>
+
+      {% for user in users %}
+      <tr>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.user_permissions }}</td>
+        <td>{{ user.is_active }}</td>
+        <td>{{ user.is_staff }}</td>
+        <td>{{ user.is_superuser }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</form>
+
+{% endblock %}

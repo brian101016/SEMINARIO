@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% block title %}
+    <title>Página principal | SRS</title>
+    {% endblock %}
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: sans-serif;
+      }
+
+      body {
+        background-color: lightblue;
+      }
+
+      .title {
+        background-color: cornflowerblue;
+        padding: 1.5rem;
+        border-bottom: 2px solid black;
+        text-align: center;
+      }
+
+      .sacramento-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        padding: 2.5rem;
+      }
+
+      .sacramento-btn {
+        width: 250px;
+        background-color: aliceblue;
+        padding: 0.75rem;
+        border: 3px solid black;
+        border-radius: 1.5rem;
+        aspect-ratio: 1 / 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.75rem;
+        text-decoration: none;
+        white-space: pre;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      {% block navbar %}
+  
+      {% endblock %}
+
+      <a href="{% url 'index' %}">Index</a>
+      <a href="{% url 'login' %}?next={{request.path}}">Login</a>
+
+      
+      {% if user.is_authenticated %}
+      <p>Bienvenido {{ user }}</p>
+      <form id="logout-form" method="post" action="{% url 'logout' %}?next={{request.path}}">
+        {% csrf_token %}
+        <button type="submit">Cerrar sesión</button>
+      </form>
+      {% endif %}
+    </nav>
+
+    
+    {% block content %}
+    <!-- default content text (typically empty) -->
+    {% endblock %}
+  </body>
+</html>

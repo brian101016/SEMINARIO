@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,6 +38,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # "bautizos",
+    # "comuniones",
+    # "confirmaciones",
+    # "matrimonios",
+    "usuarios",
     "webapp",
 ]
 
@@ -50,12 +56,18 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "webapp.urls"
+ROOT_URLCONF = "index.urls"
+
+# Redirect to home URL after login (Default redirects to /accounts/profile/)
+LOGIN_URL = "usuarios/login/"
+LOGIN_REDIRECT_URL = "/"
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [
+            os.path.join(BASE_DIR, "templates"),
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -70,14 +82,22 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "index.wsgi.application"
 
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        # "ENGINE": "django.db.backends.sqlite3",
+        # "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "proyectoFinal",
+        "USER": "postgres",
+        "PASSWORD": "admin",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
 

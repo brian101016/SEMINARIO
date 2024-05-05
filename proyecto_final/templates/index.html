@@ -1,0 +1,28 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1 class="title">Sistema de Registro de Sacramentos</h1>
+
+<h2 style="text-align: center; margin: 1rem">Sacramentos disponibles</h2>
+
+<div class="sacramento-container">
+  <a class="sacramento-btn" href="{% url 'login'%}"
+    >Bautizos {{bautizos_total}}</a
+  >
+  <a class="sacramento-btn" href="{% url 'login'%}"
+    >Comuniones {{comuniones_total}}</a
+  >
+  <a class="sacramento-btn" href="{% url 'login'%}"
+    >Confirmaciones {{confirmaciones_total}}</a
+  >
+  <a class="sacramento-btn" href="{% url 'login'%}"
+    >Matrimonios {{matrimonios_total}}</a
+  >
+</div>
+
+<h2 style="text-align: center; margin: 1rem">Administrar usuarios</h2>
+
+<div class="sacramento-container">
+  <a href="{% url 'usuarios' %}" class="sacramento-btn">Ir a Usuarios</a>
+</div>
+{% endblock %}
