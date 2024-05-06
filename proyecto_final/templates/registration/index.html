@@ -13,18 +13,13 @@
       <th>Nombre</th>
       <th>Email</th>
       <th>Permisos</th>
-      <th>Activo?</th>
-      <th>Staff?</th>
-      <th>Super?</th>
+      <th colspan="2">Controles</th>
     </thead>
     <tbody>
       <tr>
-        <td>{{ buscar_usuarios.username }}</td>
-        <td>{{ buscar_usuarios.email }}</td>
-        <td>{{ buscar_usuarios.user_permissions }}</td>
-        <td>{{ buscar_usuarios.is_active }}</td>
-        <td>{{ buscar_usuarios.is_staff }}</td>
-        <td>{{ buscar_usuarios.is_superuser }}</td>
+        <td>{{ form.username }}</td>
+        <td>{{ form.email }}</td>
+        <td>{{ form.permisos }}</td>
         <td>
           <input type="submit" value="Filtrar campos" />
         </td>
@@ -37,10 +32,9 @@
       <tr>
         <td>{{ user.username }}</td>
         <td>{{ user.email }}</td>
-        <td>{{ user.user_permissions }}</td>
-        <td>{{ user.is_active }}</td>
-        <td>{{ user.is_staff }}</td>
-        <td>{{ user.is_superuser }}</td>
+        <td>{{ user.permisos_name }}</td>
+        <td><a href="{% url 'editar_usuario' user.id %}">EDITAR</a></td>
+        <td><a href="{% url 'eliminar_usuario' user.id %}">ELIMINAR</a></td>
       </tr>
       {% endfor %}
     </tbody>

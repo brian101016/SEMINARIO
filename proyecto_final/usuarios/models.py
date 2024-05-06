@@ -11,7 +11,7 @@ class GlobalPermissions(models.Model):
         default_permissions = ()
 
         permissions = (
-            ("admin", "Administrador"),
-            ("write", "Lectura y Escritura"),
             ("read", "Solo lectura"),
+            ("write", "Lectura y Escritura"),
+            ("admin", "Administrador"),
         )
