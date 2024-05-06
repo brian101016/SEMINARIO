@@ -1,0 +1,257 @@
+{% extends 'principal.html' %}
+
+{% block content %}
+
+
+<main class="main">
+  <div class="container">
+    <h1>Datos de Comunión</h1>
+    <form method="GET" action="{% url 'buscar_comunion' %}">
+      <input type="text" name="busqueda" placeholder="Buscar..." />
+        <button class="btnBuscar" type="submit">Buscar</button>
+      </form>
+    <table class="comunion-table">
+        <tr >
+          <th>Nombre</th>
+          <th>Sexo</th>
+          <th>Padre</th>
+          <th>Madre</th>
+          <th>Padrino/Madrina</th>
+          <th>Ciudad de Bautizo</th>
+          <th>Parroquia de Bautizo</th>
+          <th>Fecha de Bautizo</th>
+          <th>Acciones</th>
+        </tr>
+        {% for comunion in comuniones %}
+        <tr>
+          <td>{{ comunion.nombre }}</td>
+          <td>
+            {% if comunion.sexo %}
+              Mujer
+            {% else %}
+              Hombre
+            {% endif %}
+          <td>{{ comunion.padre }}</td>
+          <td>{{ comunion.madre }}</td>
+          <td>{{ comunion.padrino_madrina }}</td>
+          <td>{{ comunion.ciudad_bautizo }}</td>
+          <td>{{ comunion.parroquia_bautizo }}</td>
+          <td>{{ comunion.fecha_bautizo }}</td>
+          <td>
+            <a href="{% url 'borrar_comunion' comunion.id %}">
+              <button class="btn-borrar">Borrar</button>
+            </a>
+            <a href="{% url 'editar_comunion' comunion.id %}">
+              <button class="btn-editar">Editar</button>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </main>
+
+  <div class="box-form">
+    <form method="POST" {% if comunion_editar %} action="{% url 'editar_comunion' comunion.id %}" {% else %} action="{% url 'registrar_comunion' %}" {% endif %}>
+      {% csrf_token %}
+      <label for="nombre">Nombre completo:</label>
+      <input type="text" id="nombre" name="nombre" value="{{ comunion.nombre }}" required /><br /><br />
+  
+      <label>Sexo:</label>
+      <div class="sexo-inputs">
+        <input type="radio" id="hombre" name="sexo" value="false" {% if not comunion.sexo %} checked {% endif %} />
+        <label for="hombre">Hombre</label>
+        <input type="radio" id="mujer" name="sexo" value="true" {% if comunion.sexo %} checked {% endif %} />
+        <label for="mujer">Mujer</label><br /><br />
+      </div>
+  
+      <label for="padre">Nombre completo del padre:</label>
+      <input type="text" id="padre" name="padre" value="{{ comunion.padre }}" required /><br /><br />
+  
+      <label for="madre">Nombre completo de la madre:</label>
+      <input type="text" id="madre" name="madre" value="{{ comunion.madre }}" required /><br /><br />
+  
+      <label for="padrino_madrina">Nombre completo del padrino o madrina:</label>
+      <input type="text" id="padrino_madrina" name="padrino_madrina" value="{{ comunion.padrino_madrina }}" required /><br /><br />
+  
+      <label for="ciudad_bautizo">Ciudad y lugar de bautizo:</label>
+      <input type="text" id="ciudad_bautizo" name="ciudad_bautizo" value="{{ comunion.ciudad_bautizo }}" /><br /><br />
+  
+      <label for="parroquia_bautizo">Parroquia de bautizo:</label>
+      <input type="text" id="parroquia_bautizo" name="parroquia_bautizo" value="{{ comunion.parroquia_bautizo }}" required /><br /><br />
+  
+      <label for="fecha_bautizo">Fecha de bautizo:</label>
+      <input type="date" id="fecha_bautizo" name="fecha_bautizo" value="{{ comunion.fecha_bautizo }}" required /><br /><br />
+  
+      <input type="submit" {% if comunion_editar %} value="Modificar" {% else %} value="Guardar" {% endif %} />
+    </form>
+  </div>
+
+
+  <style>
+    .container {
+      display: grid;
+      justify-content: center;
+      align-items: center;
+      margin-top: 64px;
+    }
+
+    .container form input[type="text"] {
+      width: 300px;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      margin-right: 10px;
+    }
+    
+    .container form button {
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      background-color: #007bff;
+      color: #fff;
+      font-size: 16px;
+    }
+
+
+    h1{
+      font-family: Arial, sans-serif;
+      font-weight: 300;
+      margin-bottom: 29px;
+    }
+
+    .comunion-table {
+      border-collapse: collapse;
+      border-spacing: 0;
+      border: 3px solid #000;
+      border-radius: 11px;
+      overflow: hidden;
+      width: 100%;
+      margin-top: 20px;
+    }
+  
+    .comunion-table th,
+    .comunion-table td {
+      padding: 8px;
+      text-align: center;
+      color: #000;
+      font-family: Poppins;
+      font-size: 1.0625rem;
+      font-style: normal;
+      font-weight: 300;
+      line-height: normal;
+      border: 1px solid #000;
+    }
+  
+    .comunion-table th {
+      background-color: #f1f1f1;
+      color: black;
+      font-family: Poppins; 
+      font-size: 1.000rem;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+    }
+  
+    .comunion-table button {
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+  
+
+    .btn-borrar {
+      background-color: red;
+      color: white;
+      border-radius: 5px;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+  
+    .btn-borrar:hover {
+      background-color: rgb(142, 49, 49);
+    }
+  
+    .btn-editar {
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+  
+    .btn-editar:hover {
+      background-color: #4c77a5;
+    }
+
+    .box-form {
+      width: 100%;
+      max-width: 800px;
+      margin: auto;
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: #f1f1f1;
+    }
+
+    .box-form form {
+      display: flex;
+      flex-direction: column; 
+    }
+
+    .box-form label {
+      display: block;
+      margin-bottom: 10px;
+      font-family: Arial, sans-serif;
+    }
+
+    .box-form input[type="text"],
+    .box-form input[type="date"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+
+    .box-form .sexo-inputs {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: baseline; 
+    }
+
+    .box-form .sexo-inputs label {
+      display: inline-flex; 
+      align-items: center; 
+      margin-right: 15px; 
+    }
+
+    .box-form input[type="radio"] {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    .box-form input[type="submit"] {
+      align-self: flex-end;
+      margin-top: 15px;
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      background-color: #007bff;
+      color: #fff;
+      font-size: 16px;
+    }
+
+    .box-form input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+  </style>
+  
+{% endblock %}
