@@ -1,7 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from .models import Matrimonio
 # Create your views here.
 
 
 def matrimonios(request):
-    return HttpResponse("Hola")
+    matrimonios = Matrimonio.objects.all()
+    return render(request, 'proyecto_final/',
+    {'matrimonios': matrimonios})
