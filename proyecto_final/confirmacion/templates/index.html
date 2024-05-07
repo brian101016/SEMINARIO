@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>Nombre</th>
+            <th>Sexo</th>
+            <th>Padre</th>
+            <th>Madre</th>
+            <th>Padrino o Madrina</th>
+            <th>Parroquia</th>
+            <th>Ciudad</th>
+            <th>Fecha</th>
+            <th>Opciones</th>
+        </tr>
+        {% for confirmacion in confirmaciones %}
+        <tr>
+            <td>{{confirmacion.nombre}}</td>
+            {% if confirmacion.sexo == False %}
+            <td>Masculino</td>
+            {% else %}
+            <td>Femenino</td>
+            {% endif %}
+            <td>{{confirmacion.padre}}</td>
+            <td>{{confirmacion.madre}}</td>
+            <td>{{confirmacion.padrino_madrina}}</td>
+            <td>{{confirmacion.parroquia_bautizo}}</td>
+            <td>{{confirmacion.ciudad_bautizo}}</td>
+            <td>{{confirmacion.fecha_bautizo}}</td>
+            <td>
+                <button><a href={% url "update" confirmacion.id %}>Editar</a></button>
+            </td>
+            <td>
+                <button><a href={% url "delete" confirmacion.id %}>Eliminar</a></button>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
