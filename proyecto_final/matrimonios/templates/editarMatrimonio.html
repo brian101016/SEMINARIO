@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Nuevo Registro</title>
+  </head>
+  <body>
+    <h1>Formulario de Registro</h1>
+    <table>
+      <form method="POST">
+        {% csrf_token %} {{ formaPersona }}
+        <input type="submit" value="Guardar Registro" />
+      </form>
+    </table>
+  </body>
+</html>

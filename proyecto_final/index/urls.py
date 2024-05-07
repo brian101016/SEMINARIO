@@ -20,6 +20,5 @@ from .views import matrimonios
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include("webapp.urls")),
-    path('matrimonios/', include("matrimonios.urls")),
+    path('', include("webapp.urls"))
 ]

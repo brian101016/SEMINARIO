@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Detalle de los datos</title>
+  </head>
+  <body>
+    <h1>DETALLE DE LOS DATOS DEL EMPLEADO</h1>
+    <div>ID PERSONA: {{persona.id}}</div>
+    <div>NOMBRE: {{persona.nombre}}</div>
+    <div>APELLIDO PATERNO: {{persona.apellidoPaterno}}</div>
+    <div>APELLIDO MATERNO: {{persona.apellidoMaterno}}</div>
+    <div>EDAD: {{persona.edad}}</div>
+    <div>CENTRO TRABAJO: {{persona.centroTrabajo}}</div>
+    <div>CORREO ELECTRONICO: {{persona.correo}}</div>
+
+    <a href="{% url 'inicio' %}"> Volver al inicio </a>
+  </body>
+</html>
