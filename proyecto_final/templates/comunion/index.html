@@ -1,0 +1,50 @@
+{% extends 'base_generic.html' %} {% block content %}
+
+<main class="main">
+  <div class="container">
+    <h1>Datos de Comunión</h1>
+    <form method="GET" action="{% url 'comuniones' %}">
+      <input type="text" name="busqueda" placeholder="Buscar..." />
+      <button class="btnBuscar" type="submit">Buscar</button>
+    </form>
+    <table class="comunion-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Sexo</th>
+          <th>Padre</th>
+          <th>Madre</th>
+          <th>Padrino/Madrina</th>
+          <th>Ciudad de Bautizo</th>
+          <th>Parroquia de Bautizo</th>
+          <th>Fecha de Bautizo</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for comunion in comuniones %}
+        <tr>
+          <td>{{ comunion.nombre }}</td>
+          <td>{% if comunion.sexo %} Mujer {% else %} Hombre {% endif %}</td>
+          <td>{{ comunion.padre }}</td>
+          <td>{{ comunion.madre }}</td>
+          <td>{{ comunion.padrino_madrina }}</td>
+          <td>{{ comunion.ciudad_bautizo }}</td>
+          <td>{{ comunion.parroquia_bautizo }}</td>
+          <td>{{ comunion.fecha_bautizo }}</td>
+          <td>
+            <a href="{% url 'editar_comunion' comunion.id %}">
+              <button class="btn-editar">Editar</button>
+            </a>
+            <a href="{% url 'eliminar_comunion' comunion.id %}">
+              <button class="btn-borrar">Borrar</button>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</main>
+
+{% endblock %}

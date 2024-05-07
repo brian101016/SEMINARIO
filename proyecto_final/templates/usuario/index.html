@@ -1,9 +1,12 @@
-{% extends "base_generic.html" %} {% block content %}
+{% extends "base_generic.html" %}
+
+{% block content %}
+
 <h1>Pagina de Usuarios</h1>
 
 <h3>Tabla de usuarios</h3>
 
-<a href="{% url 'nuevo_usuario' %}">Crear nuevo usuario</a>
+<a href="{% url 'crear_usuario' %}">Crear nuevo usuario</a>
 
 <form action="{% url 'usuarios' %}" method="post">
   {% csrf_token %}

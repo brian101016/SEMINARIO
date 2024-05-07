@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Comunion(models.Model):
     nombre = models.CharField(max_length=255)
     sexo = models.BooleanField(default=False)

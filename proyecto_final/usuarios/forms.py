@@ -1,28 +1,27 @@
 from django import forms
-from django.contrib.auth.forms import (
-    UsernameField,
-    UserCreationForm,
-    password_validation,
-)
-from django.contrib.auth.models import UnicodeUsernameValidator, User, Permission
+from django.contrib.auth.forms import UserCreationForm, password_validation
+from django.contrib.auth.models import User, Permission
 from django.core.exceptions import ValidationError
+
 
 from .models import GlobalPermissions
 
 
 class ReadOnlyFormMixin(forms.ModelForm):
+
     def __init__(self, *args, **kwargs):
         super(ReadOnlyFormMixin, self).__init__(*args, **kwargs)
+
         for key in self.fields.keys():
             self.fields[key].widget.attrs["readonly"] = True
             self.fields[key].disabled = True
 
     def save(self, *args, **kwargs):
-        # do not do anything
-        pass
+        pass  # do not do anything
 
 
 class BuscarUsuarioForm(forms.Form):
+
     PERMISSIONS_CHOICES = ((None, "Cualquiera"),) + GlobalPermissions._meta.permissions
 
     YES_NO = forms.Select(
@@ -61,6 +60,7 @@ class CrearUsuarioForm(UserCreationForm):
 
     def clean_permisos(self):
         permisos = self.cleaned_data["permisos"]
+
         if not Permission.objects.filter(codename=permisos).exists():
             raise ValidationError("El valor ingresado no existe", "no_permission")
         return permisos
@@ -72,10 +72,7 @@ class CrearUsuarioForm(UserCreationForm):
         permiso_obj = Permission.objects.get(codename=permisos)
         user.user_permissions.set([permiso_obj.pk])
 
-        if permisos == "admin":
-            user.is_superuser = True
-        else:
-            user.is_superuser = False
+        user.is_superuser = True if permisos == "admin" else False
 
         if commit:
             user.save()
@@ -83,7 +80,7 @@ class CrearUsuarioForm(UserCreationForm):
         return user
 
 
-class ModificarUsuarioForm(forms.ModelForm):
+class EditarUsuarioForm(forms.ModelForm):
 
     class Meta:
         model = User
@@ -110,6 +107,7 @@ class ModificarUsuarioForm(forms.ModelForm):
 
     def clean_permisos(self):
         permisos = self.cleaned_data["permisos"]
+
         if not Permission.objects.filter(codename=permisos).exists():
             raise ValidationError("El valor ingresado no existe", "no_permission")
         return permisos
@@ -121,6 +119,7 @@ class ModificarUsuarioForm(forms.ModelForm):
         if pass1 or pass2:
             password_validation.validate_password(pass1)
             password_validation.validate_password(pass2)
+
             if pass1 != pass2:
                 error = ValidationError(
                     "La nueva contraseña no coincide", "password_error"
@@ -133,16 +132,15 @@ class ModificarUsuarioForm(forms.ModelForm):
         user = super().save(commit=False)
         user.email = self.cleaned_data["email"]
         user.username = self.cleaned_data["username"]
+
         if self.cleaned_data["password1"]:
             user.set_password(self.cleaned_data["password1"])
+
         permisos = self.cleaned_data["permisos"]
         permiso_obj = Permission.objects.get(codename=permisos)
         user.user_permissions.set([permiso_obj.pk])
 
-        if permisos == "admin":
-            user.is_superuser = True
-        else:
-            user.is_superuser = False
+        user.is_superuser = True if permisos == "admin" else False
 
         if commit:
             user.save()
@@ -150,5 +148,5 @@ class ModificarUsuarioForm(forms.ModelForm):
         return user
 
 
-class ReadOnlyUsuarioForm(ReadOnlyFormMixin, ModificarUsuarioForm):
+class EliminarUsuarioForm(ReadOnlyFormMixin, EditarUsuarioForm):
     pass

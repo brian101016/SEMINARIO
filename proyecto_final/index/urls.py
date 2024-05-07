@@ -22,6 +22,10 @@ from webapp import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("usuarios/", include("usuarios.urls")),
     path("", views.index, name="index"),
+    path("bautizos/", views.bautizos_WIP, name="bautizos"),
+    path("comuniones/", include("comunion.urls")),
+    path("confirmaciones/", views.confirmaciones_WIP, name="confirmaciones"),
+    path("matrimonios/", views.matrimonios_WIP, name="matrimonios"),
+    path("usuarios/", include("usuarios.urls")),
 ]

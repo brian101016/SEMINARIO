@@ -1,0 +1,141 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.navbar {
+  width: 51.625rem;
+  height: 4.375rem;
+  flex-shrink: 0;
+  border-radius: 1.3125rem;
+  background: #fff;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+ul {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0;
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
+
+/* ######################################################### */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+nav {
+  /* width: 40%; */
+  width: max-content;
+  /* max-width: 1200px; */
+  height: 4.375rem;
+  border-radius: 1.3125rem;
+  background: #fff;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  /* margin-top: 3rem; */
+  padding: 0 1rem;
+}
+
+.nav-item {
+  margin: 0 1rem;
+}
+
+.nav-item a {
+  text-decoration: none;
+  transition: color 0.3s ease;
+  color: #767676;
+  font-family: Arial, sans-serif;
+  font-size: 1.0625rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.nav-item {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+}
+.nav-item:hover,
+.nav-item:focus,
+.nav-item:active {
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
+}
+.nav-item a:hover {
+  color: black;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  display: inline;
+  margin-left: 6px;
+}
+
+/* ################################################# */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  background-color: lightblue;
+}
+
+.title {
+  background-color: cornflowerblue;
+  padding: 1.5rem;
+  border-bottom: 2px solid black;
+  text-align: center;
+}
+
+.sacramento-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 2.5rem;
+}
+
+.sacramento-btn {
+  width: 250px;
+  background-color: aliceblue;
+  padding: 0.75rem;
+  border: 3px solid black;
+  border-radius: 1.5rem;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.75rem;
+  text-decoration: none;
+  white-space: pre;
+  text-align: center;
+}

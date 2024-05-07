@@ -5,9 +5,7 @@
 <a href="{% url 'usuarios' %}">Regresar</a>
 
 <form action="{% url 'editar_usuario' id %}" method="post">
-  {% csrf_token %}
-  
-  {{ form }}
+  {% csrf_token %} {{ form }}
 
   <input type="submit" value="Guardar cambios" />
 </form>
