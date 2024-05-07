@@ -58,7 +58,7 @@ La aplicación se basa en administrar una base de datos mediante PostreSQL sobre
 
    > NOTA: también pueden basarse del proyecto del profe, dentro de la carpeta `SAP/personas/models.py`.
 
-4. Guardar los cambios en el archivo models.py.
+4. Guardar los cambios y agreguen la app a `proyecto_final/index/settings.py`, en la línea 33, así como está "webapp".
 
 5. Ejecutar `python manage.py makemigrations` para crear las migraciones basadas en los cambios en los modelos.
 

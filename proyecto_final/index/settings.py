@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "usuarios",
     "webapp",
     "comunion",
+    "confirmacion",
 ]
 
 MIDDLEWARE = [
