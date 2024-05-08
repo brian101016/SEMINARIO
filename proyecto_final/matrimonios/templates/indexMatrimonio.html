@@ -1,19 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <title>Detalle de los datos</title>
   </head>
   <body>
-    <h1>DETALLE DE LOS DATOS DEL EMPLEADO</h1>
-    <div>ID PERSONA: {{persona.id}}</div>
-    <div>NOMBRE: {{persona.nombre}}</div>
-    <div>APELLIDO PATERNO: {{persona.apellidoPaterno}}</div>
-    <div>APELLIDO MATERNO: {{persona.apellidoMaterno}}</div>
-    <div>EDAD: {{persona.edad}}</div>
-    <div>CENTRO TRABAJO: {{persona.centroTrabajo}}</div>
-    <div>CORREO ELECTRONICO: {{persona.correo}}</div>
+    <h1>Matrimonios</h1>
+    {% for matrimonio in matrimonios %}
+    <form>
+      <div>ID MATRIMONIAL: {{matrimonio.id}}</div>
+      <div>NOMBRE NOVIO: {{matrimonio.novio}}</div>
+      <div>NOMBRE NOVIA: {{matrimonio.novia}}</div>
+      <div>DOMICILIO: {{matrimonio.domicilio}}</div>
+      <div>CIUDAD DEL SACRAMENTO: {{matrimonio.ciudad_sacramento}}</div>
+      <div>PADRES DEL NOVIO: {{matrimonio.padres_novio}}</div>
+      <div>PADRES DE LA NOVIA: {{matrimonio.padres_novia}}</div>
+      <div>TESTIGOS: {{matrimonio.testigos}}</div>
+      <div>PRESENTACIÓN: {{matrimonio.presentacion}}</div>
+      <div>FECHA DEL SACRAMENTO: {{matrimonio.fecha_sacramento}}</div>
+      <div>PRESBITERO: {{matrimonio.presbitero}}</div>
+      <div>LIBRO: {{matrimonio.libro}}</div>
+      <div>PÁGINA: {{matrimonio.pagina}}</div>
+      <div>PARTIDA: {{matrimonio.partida}}</div>
+      <div>NOTAS: {{matrimonio.notas}}</div>
 
-    <a href="{% url 'inicio' %}"> Volver al inicio </a>
+      <button><a href={% url "update" matrimonio.id %}>Editar</a></button>
+      <button><a href={% url "delete" matrimonio.id %}>Eliminar</a></button>
+
+    </form>
+    <br />
+    {% endfor %}
   </body>
 </html>

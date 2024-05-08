@@ -2,53 +2,15 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-
-    <h1>Bienvenido al apartado de matrimonios</h1>
-
-    <input
-      type="text"
-      placeholder="Nombre completo del novio, separado con espacios donde sea necesario." />
-    <input
-      type="text"
-      placeholder="Nombre completo de la novia, separado con espacios donde sea necesario." />
-    <input
-      type="text"
-      placeholder="Domicilio de los novios, anotado en cualquier formato." />
-    <input
-      type="text"
-      placeholder=" Ciudad donde se recibió el sacramento en custión." />
-    <input
-      type="text"
-      placeholder="Nombre completo de los padres de la novio, separado con espacios y una coma donde sea necesario." />
-    <input
-      type="text"
-      placeholder="Nombre completo de los padres de la novia, separado con espacios y una coma donde sea necesario." />
-    <input
-      type="text"
-      placeholder=" Lista de testigos del matrimonio. Nombre completo de los testigos, separado con espacios donde sea necesario." />
-    <input
-      type="text"
-      placeholder="Presentación matrimonial o anotaciones particulares." />
-    <input
-      type="datetime"
-      placeholder="Fecha cuando se ejerció el sacramento." />
-    <input
-      type="text"
-      placeholder="Nombre completo del presbítero a cargo, separado con espacios donde sea necesario." />
-    <input
-      type="number"
-      placeholder="Representa el número del libro según el sacramento." />
-    <input
-      type="number"
-      placeholder="Representa el número de página según el libro." />
-    <input
-      type="number"
-      placeholder="Representa el número de partida según la página." />
-    <input
-      type="text"
-      placeholder="Cualquier consideración o notas adicionales." />
   </head>
-  <body></body>
+  <body>
+    <h1>Formulario de Registro</h1>
+    <table>
+      <form method="POST">
+        {% csrf_token %} {{ formaMatrimonio }}
+
+        <input type="submit" value="Guardar Registro" />
+      </form>
+    </table>
+  </body>
 </html>

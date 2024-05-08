@@ -4,7 +4,6 @@ from django.db import models
 
 class Matrimonio(models.Model):
 
-    id = models.IntegerField(primary_key=True)
     novio = models.CharField(max_length=60)  
     novia = models.CharField(max_length=60)  
     domicilio = models.CharField(max_length=60)  
