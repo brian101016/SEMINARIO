@@ -57,10 +57,10 @@ def editar_usuario(request, id):
     usuario = get_object_or_404(User, pk=id)
     data = user_a_usuario(usuario)
 
-    form = EditarUsuarioForm(data=data, instance=usuario)
+    form = EditarUsuarioForm(data=data, instance=usuario, user=request.user)
 
     if request.method == "POST":
-        form = EditarUsuarioForm(request.POST, instance=usuario)
+        form = EditarUsuarioForm(request.POST, instance=usuario, user=request.user)
 
         if form.is_valid():
             form.save()
@@ -75,7 +75,8 @@ def eliminar_usuario(request, id):
     form = EliminarUsuarioForm(data=data, instance=usuario)
 
     if request.method == "POST":
-        usuario.delete()
+        if request.user.id != usuario.id:
+            usuario.delete()
         return redirect("usuarios")
 
     return render(request, "usuario/eliminar.html", {"form": form, "id": id})

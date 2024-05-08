@@ -148,3 +148,169 @@ body {
   white-space: pre;
   text-align: center;
 }
+
+/* ######################## */
+
+.container {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  margin-top: 64px;
+}
+
+.container form input[type="text"] {
+  width: 300px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.container form button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+}
+
+h1 {
+  font-family: Arial, sans-serif;
+  font-weight: 300;
+  margin-bottom: 29px;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 3px solid #000;
+  border-radius: 11px;
+  overflow: hidden;
+  width: 100%;
+  margin-top: 20px;
+}
+
+table th,
+table td {
+  padding: 8px;
+  text-align: center;
+  color: #000;
+  font-family: Poppins;
+  font-size: 1.0625rem;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  border: 1px solid #000;
+}
+
+table th {
+  background-color: #f1f1f1;
+  color: black;
+  font-family: Poppins;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+table button {
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.btn-3 {
+  background-color: red;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.btn-3:hover {
+  background-color: rgb(142, 49, 49);
+}
+
+.btn-1,
+.btn-2 {
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.btn-1:hover,
+.btn-2:hover {
+  background-color: #4c77a5;
+}
+
+.box-form {
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #f1f1f1;
+}
+
+.box-form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.box-form label {
+  display: block;
+  margin-bottom: 10px;
+  font-family: Arial, sans-serif;
+}
+
+.box-form input[type="text"],
+.box-form input[type="date"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.box-form .sexo-inputs {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: baseline;
+}
+
+.box-form .sexo-inputs label {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.box-form input[type="radio"] {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.box-form input[type="submit"] {
+  align-self: flex-end;
+  margin-top: 15px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+}
+
+.box-form input[type="submit"]:hover {
+  background-color: #0056b3;
+}

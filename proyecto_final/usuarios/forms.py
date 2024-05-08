@@ -61,6 +61,13 @@ class CrearUsuarioForm(UserCreationForm):
 
 
 class EditarUsuarioForm(forms.ModelForm):
+    USER_ACCESS = None
+
+    def __init__(self, *args, user=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        if user is not None:
+            self.USER_ACCESS = user
+
     class Meta:
         model = User
         fields = ["username", "email"]
@@ -85,6 +92,11 @@ class EditarUsuarioForm(forms.ModelForm):
 
     def clean_permisos(self):
         permisos = self.cleaned_data["permisos"]
+        user = self.instance
+        if self.USER_ACCESS and self.USER_ACCESS.id == user.id and permisos != "admin":
+            raise ValidationError(
+                "No es posible desacreditarse como admin", "no_permission"
+            )
 
         if not Permission.objects.filter(codename=permisos).exists():
             raise ValidationError("El valor ingresado no existe", "no_permission")
