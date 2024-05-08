@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 nombre = models.CharField(max_length=60)  
-sexo = models.BooleanField(initial = True)
+sexo = models.BooleanField(default=True)
 fecha_nacimiento = models.DateField()
 ciudad_nacimiento = models.CharField(max_length=60) 
 folio_acta_nacimiento = models.CharField(max_length=60)  
