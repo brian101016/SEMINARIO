@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %} {% block content %}
+
+<h1>Página de Confirmaciones</h1>
+
+<h2>Eliminar confirmación</h2>
+
+<a href="{% url 'confirmaciones' %}">Regresar</a>
+
+<form action="{% url 'eliminar_confirmacion' id %}" method="POST" novalidate>
+  {% csrf_token %} {{ form }}
+
+  <button>Confirmar eliminación</button>
+</form>
+
+{% endblock %}

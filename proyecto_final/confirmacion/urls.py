@@ -1,9 +1,12 @@
 from django.urls import path
+
+
 from . import views
 
+
 urlpatterns = [
-    path("", views.index, name="index"),
-    path("create", views.create, name="create"),
-    path("update/<int:confirmacion_id>", views.update, name="update"),
-    path("delete/<int:confirmacion_id>", views.delete, name="delete"),
+    path("", views.index, name="confirmaciones"),
+    path("crear", views.crear_confirmacion, name="crear_confirmacion"),
+    path("editar/<int:id>", views.editar_confirmacion, name="editar_confirmacion"),
+    path("eliminar/<int:id>", views.eliminar_confirmacion, name="eliminar_confirmacion"),
 ]

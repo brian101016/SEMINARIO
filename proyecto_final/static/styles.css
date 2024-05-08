@@ -24,6 +24,15 @@ a {
   color: rgb(0, 0, 0);
 }
 
+h2 {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+h1 {
+  text-align: center;
+}
+
 /* ######################################################### */
 
 * {

@@ -23,14 +23,7 @@ class ReadOnlyFormMixin(forms.ModelForm):
 class BuscarUsuarioForm(forms.Form):
 
     PERMISSIONS_CHOICES = ((None, "Cualquiera"),) + GlobalPermissions._meta.permissions
-
-    YES_NO = forms.Select(
-        choices=[
-            (None, "Cualquiera"),
-            (True, "Si"),
-            (False, "No"),
-        ]
-    )
+    YES_NO = forms.Select(choices=[(None, "Cualquiera"), (True, "Si"), (False, "No")])
 
     username = forms.CharField(max_length=255, required=False, empty_value=None)
     email = forms.CharField(max_length=255, required=False, empty_value=None)
@@ -81,7 +74,6 @@ class CrearUsuarioForm(UserCreationForm):
 
 
 class EditarUsuarioForm(forms.ModelForm):
-
     class Meta:
         model = User
         fields = ["username", "email"]

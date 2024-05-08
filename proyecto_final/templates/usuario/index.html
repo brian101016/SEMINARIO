@@ -1,22 +1,22 @@
-{% extends "base_generic.html" %}
+{% extends "base_generic.html" %} {% block content %}
 
-{% block content %}
+<h1>Página de Usuarios</h1>
 
-<h1>Pagina de Usuarios</h1>
-
-<h3>Tabla de usuarios</h3>
+<h2>Mostrar usuarios</h2>
 
 <a href="{% url 'crear_usuario' %}">Crear nuevo usuario</a>
 
-<form action="{% url 'usuarios' %}" method="post">
+<form action="{% url 'usuarios' %}" method="POST">
   {% csrf_token %}
 
   <table>
     <thead>
-      <th>Nombre</th>
-      <th>Email</th>
-      <th>Permisos</th>
-      <th colspan="2">Controles</th>
+      <tr>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Permisos</th>
+        <th colspan="2">Acciones</th>
+      </tr>
     </thead>
     <tbody>
       <tr>
@@ -24,20 +24,24 @@
         <td>{{ form.email }}</td>
         <td>{{ form.permisos }}</td>
         <td>
-          <input type="submit" value="Filtrar campos" />
+          <button>Filtrar campos</button>
         </td>
         <td>
-          <a href="{% url 'usuarios' %}">Limpiar campos</a>
+          <a class="btn-1" href="{% url 'usuarios' %}">Limpiar campos</a>
         </td>
       </tr>
 
-      {% for user in users %}
+      {% for item in usuarios %}
       <tr>
-        <td>{{ user.username }}</td>
-        <td>{{ user.email }}</td>
-        <td>{{ user.permisos_name }}</td>
-        <td><a href="{% url 'editar_usuario' user.id %}">EDITAR</a></td>
-        <td><a href="{% url 'eliminar_usuario' user.id %}">ELIMINAR</a></td>
+        <td>{{ item.username }}</td>
+        <td>{{ item.email }}</td>
+        <td>{{ item.permisos_name }}</td>
+        <td>
+          <a class="btn-2" href="{% url 'editar_usuario' item.id %}">Editar</a>
+        </td>
+        <td>
+          <a class="btn-3" href="{% url 'eliminar_usuario' item.id %}">Eliminar</a>
+        </td>
       </tr>
       {% endfor %}
     </tbody>

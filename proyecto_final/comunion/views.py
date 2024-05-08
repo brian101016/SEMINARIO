@@ -1,98 +1,71 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required, permission_required
+from django.db.models import Q
 
 
 from .models import Comunion
+from .forms import (
+    BuscarComunionForm,
+    ComunionForm,
+    EliminarComunionForm,
+)
 
 
 def comuniones(request):
-    comuniones_all = Comunion.objects.all()
-    return render(request, "comunion/index.html", {"comuniones": comuniones_all})
+    form = BuscarComunionForm()
+    lista_comuniones = Comunion.objects.all()
 
-
-def buscar_comunion(request):
-    busqueda = request.GET.get("busqueda")
-    if busqueda:
-        comuniones = (
-            Comunion.objects.filter(nombre__icontains=busqueda)
-            | Comunion.objects.filter(padre__icontains=busqueda)
-            | Comunion.objects.filter(madre__icontains=busqueda)
-            | Comunion.objects.filter(parroquia_bautizo__icontains=busqueda)
-        )
-    else:
-        comuniones = Comunion.objects.all()
+    if request.method == "POST":
+        form = BuscarComunionForm(request.POST)
+        if form.is_valid():
+            busqueda = ""
+            lista_comuniones = Comunion.objects.filter(
+                Q(nombre__icontains=busqueda)
+                | Q(padre__icontains=busqueda)
+                | Q(madre__icontains=busqueda)
+                | Q(parroquia_bautizo__icontains=busqueda)
+            )
+            # AQUI PONEMOS TODOS LOS CAMPOS
 
     return render(
-        request,
-        "comunion/index.html",
-        {"comuniones": comuniones, "busqueda": busqueda},
+        request, "comunion/index.html", {"comuniones": lista_comuniones, "form": form}
     )
 
 
 def crear_comunion(request):
+    form = ComunionForm()
+
     if request.method == "POST":
-        nombre = request.POST.get("nombre")
-        sexo_str = request.POST.get("sexo")
-        sexo = True if sexo_str == "true" else False
-        padre = request.POST.get("padre")
-        madre = request.POST.get("madre")
-        padrino_madrina = request.POST.get("padrino_madrina")
-        ciudad_bautizo = request.POST.get("ciudad_bautizo")
-        parroquia_bautizo = request.POST.get("parroquia_bautizo")
-        fecha_bautizo = request.POST.get("fecha_bautizo")
+        form = ComunionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("comuniones")
 
-        comunion = Comunion(
-            nombre=nombre,
-            sexo=sexo,
-            padre=padre,
-            madre=madre,
-            padrino_madrina=padrino_madrina,
-            ciudad_bautizo=ciudad_bautizo,
-            parroquia_bautizo=parroquia_bautizo,
-            fecha_bautizo=fecha_bautizo,
-        )
-        comunion.save()
-
-    return redirect("comuniones")
-
-
-def eliminar_comunion(request, id):
-    comunion = Comunion.objects.get(id=id)
-
-    comunion.delete()
-
-    return redirect("comuniones")
+    return render(request, "comunion/crear.html", {"form": form})
 
 
 def editar_comunion(request, id):
-    comuniones = Comunion.objects.all()
-
-    comunion = Comunion.objects.get(id=id)
+    comunion = get_object_or_404(Comunion, pk=id)
+    dd = comunion.fecha_bautizo
+    print(dd)
+    form = ComunionForm(instance=comunion)
 
     if request.method == "POST":
-        nombre = request.POST.get("nombre")
-        sexo_str = request.POST.get("sexo")
-        sexo = True if sexo_str == "true" else False
-        padre = request.POST.get("padre")
-        madre = request.POST.get("madre")
-        padrino_madrina = request.POST.get("padrino_madrina")
-        ciudad_bautizo = request.POST.get("ciudad_bautizo")
-        parroquia_bautizo = request.POST.get("parroquia_bautizo")
-        fecha_bautizo = request.POST.get("fecha_bautizo")
+        form = ComunionForm(request.POST, instance=comunion)
 
-        comunion.nombre = nombre
-        comunion.sexo = sexo
-        comunion.padre = padre
-        comunion.madre = madre
-        comunion.padrino_madrina = padrino_madrina
-        comunion.ciudad_bautizo = ciudad_bautizo
-        comunion.parroquia_bautizo = parroquia_bautizo
-        comunion.fecha_bautizo = fecha_bautizo
-        comunion.save()
+        if form.is_valid():
+            form.save()
+            return redirect("comuniones")
 
-        return redirect("registrar_comunion")
+    return render(request, "comunion/editar.html", {"form": form, "id": id})
 
-    return render(
-        request,
-        "comunion/editar.html",
-        {"comunion": comunion, "comuniones": comuniones, "comunion_editar": True},
-    )
+
+def eliminar_comunion(request, id):
+    comunion = get_object_or_404(Comunion, id=id)
+    form = EliminarComunionForm(instance=comunion)
+
+    if request.method == "POST":
+        comunion.delete()
+        return redirect("comuniones")
+
+    return render(request, "comunion/eliminar.html", {"form": form, "id": id})

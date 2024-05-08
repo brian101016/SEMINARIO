@@ -1,13 +1,15 @@
 {% extends "base_generic.html" %} {% block content %}
 
-<h1>Eliminar usuario</h1>
+<h1>Página de Usuarios</h1>
+
+<h2>Eliminar usuario</h2>
 
 <a href="{% url 'usuarios' %}">Regresar</a>
 
 <form action="{% url 'eliminar_usuario' id %}" method="POST" novalidate>
   {% csrf_token %} {{ form }}
 
-  <input type="submit" value="Confirmar eliminación" />
+  <button>Confirmar eliminación</button>
 </form>
 
 {% endblock %}

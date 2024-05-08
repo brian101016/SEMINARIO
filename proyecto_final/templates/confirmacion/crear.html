@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %} {% block content %}
+
+<h1>Página de Confirmaciones</h1>
+
+<h2>Crear confirmación</h2>
+
+<a href="{% url 'confirmaciones' %}">Regresar</a>
+
+<form action="{% url 'crear_confirmacion' %}" method="POST">
+  {% csrf_token %} {{ form }}
+
+  <button>Crear nuevo registro</button>
+</form>
+
+{% endblock %}

@@ -1,48 +1,15 @@
-{% extends 'base_generic.html' %}
+{% extends "base_generic.html" %} {% block content %}
 
-{% block content %}
+<h1>Página de Comuniones</h1>
 
-<div class="box-form">
-  <form method="POST"
-    {% if comunion_editar %}
-      action="{% url 'editar_comunion' comunion.id %}"
-    {% else %}
-      action="{% url 'crear_comunion' %}"
-    {% endif %}
-  >
-    {% csrf_token %}
+<h2>Crear comunión</h2>
 
-    <label for="nombre">Nombre completo:</label>
-    <input type="text" id="nombre" name="nombre" value="{{ comunion.nombre }}" required /><br /><br />
+<a href="{% url 'comuniones' %}">Regresar</a>
 
-    <label>Sexo:</label>
-    <div class="sexo-inputs">
-      <input type="radio" id="hombre" name="sexo" value="false" {% if not comunion.sexo %} checked {% endif %} />
-      <label for="hombre">Hombre</label>
-      <input type="radio" id="mujer" name="sexo" value="true" {% if comunion.sexo %} checked {% endif %} />
-      <label for="mujer">Mujer</label><br /><br />
-    </div>
+<form action="{% url 'crear_comunion' %}" method="POST">
+  {% csrf_token %} {{ form }}
 
-    <label for="padre">Nombre completo del padre:</label>
-    <input type="text" id="padre" name="padre" value="{{ comunion.padre }}" required /><br /><br />
-
-    <label for="madre">Nombre completo de la madre:</label>
-    <input type="text" id="madre" name="madre" value="{{ comunion.madre }}" required /><br /><br />
-
-    <label for="padrino_madrina">Nombre completo del padrino o madrina:</label>
-    <input type="text" id="padrino_madrina" name="padrino_madrina" value="{{ comunion.padrino_madrina }}" required /><br /><br />
-
-    <label for="ciudad_bautizo">Ciudad y lugar de bautizo:</label>
-    <input type="text" id="ciudad_bautizo" name="ciudad_bautizo" value="{{ comunion.ciudad_bautizo }}" /><br /><br />
-
-    <label for="parroquia_bautizo">Parroquia de bautizo:</label>
-    <input type="text" id="parroquia_bautizo" name="parroquia_bautizo" value="{{ comunion.parroquia_bautizo }}" required /><br /><br />
-
-    <label for="fecha_bautizo">Fecha de bautizo:</label>
-    <input type="date" id="fecha_bautizo" name="fecha_bautizo" value="{{ comunion.fecha_bautizo }}" required /><br /><br />
-
-    <input type="submit" {% if comunion_editar %} value="Modificar" {% else %} value="Guardar" {% endif %} />
-  </form>
-</div>
+  <button>Crear nuevo registro</button>
+</form>
 
 {% endblock %}

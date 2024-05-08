@@ -2,7 +2,6 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, permission_required
 from django.db.models import Q
-from django.urls.base import reverse
 
 
 from .forms import (
@@ -14,32 +13,33 @@ from .forms import (
 from .parse import user_a_usuario
 
 
-# Create your views here.
 def usuarios(request):
     form = BuscarUsuarioForm()
-    usuarios = User.objects.all()
+    lista_usuarios = User.objects.all()
 
     if request.method == "POST":
         form = BuscarUsuarioForm(request.POST)
         if form.is_valid():
             fil_username = form.cleaned_data["username"]
             if fil_username is not None:
-                usuarios = usuarios.filter(username__icontains=fil_username)
+                lista_usuarios = lista_usuarios.filter(username__icontains=fil_username)
             fil_email = form.cleaned_data["email"]
             if fil_email is not None:
-                usuarios = usuarios.filter(email__icontains=fil_email)
+                lista_usuarios = lista_usuarios.filter(email__icontains=fil_email)
             fil_permisos = form.cleaned_data["permisos"]
             if fil_permisos:
-                usuarios = usuarios.filter(Q(user_permissions__codename=fil_permisos))
+                lista_usuarios = lista_usuarios.filter(
+                    Q(user_permissions__codename=fil_permisos)
+                )
 
-    format_usuarios = []
-    for u in usuarios:
-        format_usuarios.append(user_a_usuario(u))
+    lista_bonita = []
+    for u in lista_usuarios:
+        lista_bonita.append(user_a_usuario(u))
 
     return render(
         request,
         "usuario/index.html",
-        {"users": format_usuarios, "form": form},
+        {"usuarios": lista_bonita, "form": form},
     )
 
 

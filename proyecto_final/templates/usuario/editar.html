@@ -1,13 +1,15 @@
 {% extends "base_generic.html" %} {% block content %}
 
-<h1>Modificar usuario</h1>
+<h1>Página de Usuarios</h1>
+
+<h2>Editar usuario</h2>
 
 <a href="{% url 'usuarios' %}">Regresar</a>
 
-<form action="{% url 'editar_usuario' id %}" method="post">
+<form action="{% url 'editar_usuario' id %}" method="POST">
   {% csrf_token %} {{ form }}
 
-  <input type="submit" value="Guardar cambios" />
+  <button>Guardar cambios</button>
 </form>
 
 {% endblock %}
