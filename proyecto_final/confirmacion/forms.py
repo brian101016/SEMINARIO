@@ -1,34 +1,42 @@
 from django import forms
-from django.forms import ModelForm
-from .models import Confirmacion
 
-CHOICES = {
-    True : "Mujer",
-    False : "Hombre",
-}
+
+from .models import Confirmacion
+from webapp.utils import (
+    FechaAnteriorField,
+    SexoField,
+    SexoBuscarField,
+    ReadOnlyFormMixin,
+)
+
+
+class BuscarConfirmacionForm(forms.Form):
+    nombre = forms.CharField(max_length=255, required=False)
+    sexo = SexoBuscarField()
+    padre = forms.CharField(max_length=255, required=False)
+    madre = forms.CharField(max_length=255, required=False)
+    padrino_madrina = forms.CharField(max_length=255, required=False)
+    ciudad_bautizo = forms.CharField(max_length=255, required=False)
+    parroquia_bautizo = forms.CharField(max_length=255, required=False)
+    fecha_bautizo = FechaAnteriorField(required=False)
+
 
 class ConfirmacionForm(forms.ModelForm):
+    sexo = SexoField()
+    fecha_bautizo = FechaAnteriorField(label="Fecha de bautizo")
+
     class Meta:
         model = Confirmacion
-        fields = ['nombre','padre','madre','padrino_madrina','parroquia_bautizo','ciudad_bautizo']
+        fields = "__all__"
+        labels = {
+            "nombre": "Nombre completo",
+            "padre": "Nombre completo del padre",
+            "madre": "Nombre completo de la madre",
+            "padrino_madrina": "Nombre completo del padrino o madrina",
+            "ciudad_bautizo": "Ciudad y lugar de bautizo",
+            "parroquia_bautizo": "Parroquia de bautizo",
+        }
 
-    sexo = forms.MultipleChoiceField(
-    label='Sexo: Marque la casilla',
-    required=False,
-    widget=forms.CheckboxSelectMultiple,
-    choices=CHOICES,
-    )
 
-class CrearConfirmacion(forms.Form):
-    nombre = forms.CharField(label='Nombre completo', max_length=200,required=True) 
-    sexo = forms.MultipleChoiceField(
-        label='Sexo: Marque la casilla',
-        required=False,
-        widget=forms.CheckboxSelectMultiple,
-        choices=CHOICES,
-    )
-    padre = forms.CharField(label='Nombre completo del padre', max_length=200,required=True)
-    madre = forms.CharField(label='Nombre completo de la madre', max_length=200,required=True)
-    padrino_madrina = forms.CharField(label='Nombre compelto del padrino o madrina',max_length=200,required=True)
-    parroquia_bautizo = forms.CharField(label='Nombre de la parroquia',max_length=100,required=True)
-    ciudad_bautizo = forms.CharField(label='Nombre de la cuidad',max_length=100,required=True)
+class EliminarConfirmacionForm(ReadOnlyFormMixin, ConfirmacionForm):
+    pass

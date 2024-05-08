@@ -13,33 +13,31 @@ from .forms import (
 from .parse import user_a_usuario
 
 
-def usuarios(request):
+def index(request):
     form = BuscarUsuarioForm()
-    lista_usuarios = User.objects.all()
+    usuarios = User.objects.all()
 
     if request.method == "POST":
         form = BuscarUsuarioForm(request.POST)
         if form.is_valid():
             fil_username = form.cleaned_data["username"]
             if fil_username is not None:
-                lista_usuarios = lista_usuarios.filter(username__icontains=fil_username)
+                usuarios = usuarios.filter(username__icontains=fil_username)
             fil_email = form.cleaned_data["email"]
             if fil_email is not None:
-                lista_usuarios = lista_usuarios.filter(email__icontains=fil_email)
+                usuarios = usuarios.filter(email__icontains=fil_email)
             fil_permisos = form.cleaned_data["permisos"]
             if fil_permisos:
-                lista_usuarios = lista_usuarios.filter(
-                    Q(user_permissions__codename=fil_permisos)
-                )
+                usuarios = usuarios.filter(Q(user_permissions__codename=fil_permisos))
 
-    lista_bonita = []
-    for u in lista_usuarios:
-        lista_bonita.append(user_a_usuario(u))
+    usuarios_formato = []
+    for u in usuarios:
+        usuarios_formato.append(user_a_usuario(u))
 
     return render(
         request,
         "usuario/index.html",
-        {"usuarios": lista_bonita, "form": form},
+        {"usuarios": usuarios_formato, "form": form},
     )
 
 

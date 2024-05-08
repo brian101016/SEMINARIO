@@ -11,15 +11,15 @@ from .forms import (
 )
 
 
-def comuniones(request):
+def index(request):
     form = BuscarComunionForm()
-    lista_comuniones = Comunion.objects.all()
+    comuniones = Comunion.objects.all()
 
     if request.method == "POST":
         form = BuscarComunionForm(request.POST)
         if form.is_valid():
             busqueda = ""
-            lista_comuniones = Comunion.objects.filter(
+            comuniones = Comunion.objects.filter(
                 Q(nombre__icontains=busqueda)
                 | Q(padre__icontains=busqueda)
                 | Q(madre__icontains=busqueda)
@@ -28,7 +28,7 @@ def comuniones(request):
             # AQUI PONEMOS TODOS LOS CAMPOS
 
     return render(
-        request, "comunion/index.html", {"comuniones": lista_comuniones, "form": form}
+        request, "comunion/index.html", {"comuniones": comuniones, "form": form}
     )
 
 
@@ -46,8 +46,6 @@ def crear_comunion(request):
 
 def editar_comunion(request, id):
     comunion = get_object_or_404(Comunion, pk=id)
-    dd = comunion.fecha_bautizo
-    print(dd)
     form = ComunionForm(instance=comunion)
 
     if request.method == "POST":

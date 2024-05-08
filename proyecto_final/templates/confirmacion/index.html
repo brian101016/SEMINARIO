@@ -16,23 +16,23 @@
         <th>Sexo</th>
         <th>Padre</th>
         <th>Madre</th>
-        <th>Padrino o Madrina</th>
-        <th>Parroquia</th>
-        <th>Ciudad</th>
-        <th>Fecha</th>
+        <th>Padrino/Madrina</th>
+        <th>Ciudad de Bautizo</th>
+        <th>Parroquia de Bautizo</th>
+        <th>Fecha de Bautizo</th>
         <th colspan="2">Acciones</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>Nombre</td>
-        <td>Sexo</td>
-        <td>Padre</td>
-        <td>Madre</td>
-        <td>Padrino o Madrina</td>
-        <td>Parroquia</td>
-        <td>Ciudad</td>
-        <td>Fecha</td>
+        <td>{{ form.nombre }}</td>
+        <td>{{ form.sexo }}</td>
+        <td>{{ form.padre }}</td>
+        <td>{{ form.madre }}</td>
+        <td>{{ form.padrino_madrina }}</td>
+        <td>{{ form.ciudad_bautizo }}</td>
+        <td>{{ form.parroquia_bautizo }}</td>
+        <td>{{ form.fecha_bautizo }}</td>
         <td>
           <button>Filtrar campos</button>
         </td>
@@ -48,14 +48,18 @@
         <td>{{ item.padre }}</td>
         <td>{{ item.madre }}</td>
         <td>{{ item.padrino_madrina }}</td>
-        <td>{{ item.parroquia_bautizo }}</td>
         <td>{{ item.ciudad_bautizo }}</td>
+        <td>{{ item.parroquia_bautizo }}</td>
         <td>{{ item.fecha_bautizo }}</td>
         <td>
-          <a class="btn-2" href="{% url 'editar_confirmacion' item.id %}">Editar</a>
+          <a class="btn-2" href="{% url 'editar_confirmacion' item.id %}"
+            >Editar</a
+          >
         </td>
         <td>
-          <a class="btn-3" href="{% url 'eliminar_confirmacion' item.id %}">Eliminar</a>
+          <a class="btn-3" href="{% url 'eliminar_confirmacion' item.id %}"
+            >Eliminar</a
+          >
         </td>
       </tr>
       {% endfor %}

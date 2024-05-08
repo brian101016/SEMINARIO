@@ -5,49 +5,31 @@ from django.core.exceptions import ValidationError
 
 
 from .models import GlobalPermissions
-
-
-class ReadOnlyFormMixin(forms.ModelForm):
-
-    def __init__(self, *args, **kwargs):
-        super(ReadOnlyFormMixin, self).__init__(*args, **kwargs)
-
-        for key in self.fields.keys():
-            self.fields[key].widget.attrs["readonly"] = True
-            self.fields[key].disabled = True
-
-    def save(self, *args, **kwargs):
-        pass  # do not do anything
+from webapp.utils import ReadOnlyFormMixin
 
 
 class BuscarUsuarioForm(forms.Form):
 
     PERMISSIONS_CHOICES = ((None, "Cualquiera"),) + GlobalPermissions._meta.permissions
-    YES_NO = forms.Select(choices=[(None, "Cualquiera"), (True, "Si"), (False, "No")])
 
     username = forms.CharField(max_length=255, required=False, empty_value=None)
     email = forms.CharField(max_length=255, required=False, empty_value=None)
     permisos = forms.ChoiceField(choices=PERMISSIONS_CHOICES, required=False)
-    is_active = forms.NullBooleanField(widget=YES_NO, required=False)
-    is_staff = forms.NullBooleanField(widget=YES_NO, required=False)
-    is_superuser = forms.NullBooleanField(widget=YES_NO, required=False)
 
 
 class CrearUsuarioForm(UserCreationForm):
 
     password1 = forms.CharField(
-        max_length=32, required=True, widget=forms.PasswordInput, label="Contraseña"
+        max_length=32, widget=forms.PasswordInput, label="Contraseña"
     )
     password2 = forms.CharField(
         max_length=32,
-        required=True,
         widget=forms.PasswordInput,
         label="Confirmar contraseña",
     )
-    email = forms.EmailField(max_length=255, required=True, label="Correo electrónico")
+    email = forms.EmailField(max_length=255, label="Correo electrónico")
     permisos = forms.ChoiceField(
         choices=GlobalPermissions._meta.permissions,
-        required=True,
         label="Permisos de usuario",
     )
 
@@ -65,7 +47,12 @@ class CrearUsuarioForm(UserCreationForm):
         permiso_obj = Permission.objects.get(codename=permisos)
         user.user_permissions.set([permiso_obj.pk])
 
-        user.is_superuser = True if permisos == "admin" else False
+        if permisos == "admin":
+            user.is_superuser = True
+            user.is_staff = True
+        else:
+            user.is_superuser = False
+            user.is_staff = False
 
         if commit:
             user.save()
@@ -78,7 +65,7 @@ class EditarUsuarioForm(forms.ModelForm):
         model = User
         fields = ["username", "email"]
 
-    email = forms.EmailField(max_length=255, required=True, label="Correo electrónico")
+    email = forms.EmailField(max_length=255, label="Correo electrónico")
     password1 = forms.CharField(
         max_length=32,
         required=False,
@@ -93,7 +80,6 @@ class EditarUsuarioForm(forms.ModelForm):
     )
     permisos = forms.ChoiceField(
         choices=GlobalPermissions._meta.permissions,
-        required=True,
         label="Permisos de usuario",
     )
 
@@ -132,7 +118,12 @@ class EditarUsuarioForm(forms.ModelForm):
         permiso_obj = Permission.objects.get(codename=permisos)
         user.user_permissions.set([permiso_obj.pk])
 
-        user.is_superuser = True if permisos == "admin" else False
+        if permisos == "admin":
+            user.is_superuser = True
+            user.is_staff = True
+        else:
+            user.is_superuser = False
+            user.is_staff = False
 
         if commit:
             user.save()

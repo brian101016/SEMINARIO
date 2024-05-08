@@ -1,52 +1,71 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required, permission_required
+from django.db.models import Q
+
+
 from .models import Confirmacion
-from .forms import CrearConfirmacion, ConfirmacionForm
+from .forms import (
+    BuscarConfirmacionForm,
+    ConfirmacionForm,
+    EliminarConfirmacionForm,
+)
 
 
 def index(request):
+    form = BuscarConfirmacionForm()
     confirmaciones = Confirmacion.objects.all()
+
+    if request.method == "POST":
+        form = BuscarConfirmacionForm(request.POST)
+        if form.is_valid():
+            busqueda = ""
+            confirmaciones = Confirmacion.objects.filter(
+                Q(nombre__icontains=busqueda)
+                | Q(padre__icontains=busqueda)
+                | Q(madre__icontains=busqueda)
+                | Q(parroquia_bautizo__icontains=busqueda)
+            )
+        # AQUI PONEMOS TODOS LOS CAMPOS
+
     return render(
-        request, "confirmacion/index.html", {"confirmaciones": confirmaciones}
+        request,
+        "confirmacion/index.html",
+        {"confirmaciones": confirmaciones, "form": form},
     )
 
 
 def crear_confirmacion(request):
-    if request.method == "GET":
-        return render(request, "confirmacion/crear.html", {"form": CrearConfirmacion()})
-    else:
-        Confirmacion.objects.create(
-            nombre=request.POST["nombre"],
-            sexo=request.POST["sexo"],
-            padre=request.POST["padre"],
-            madre=request.POST["madre"],
-            padrino_madrina=request.POST["padrino_madrina"],
-            parroquia_bautizo=request.POST["parroquia_bautizo"],
-            ciudad_bautizo=request.POST["ciudad_bautizo"],
-        )
-        return redirect("confirmaciones")
+    form = ConfirmacionForm()
+
+    if request.method == "POST":
+        form = ConfirmacionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("confirmaciones")
+
+    return render(request, "confirmacion/crear.html", {"form": form})
 
 
 def editar_confirmacion(request, id):
-    if request.method == "GET":
-        db_data = get_object_or_404(Confirmacion, pk=id)
-        form = ConfirmacionForm(instance=db_data)
-        return render(
-            request,
-            "confirmacion/editar.html",
-            {"form": form, "confirmaciones": db_data},
-        )
-    else:
-        db_data = get_object_or_404(Confirmacion, pk=id)
-        sexo = request.POST["sexo"]
-        db_data.sexo = sexo
-        db_data.save()
-        form = ConfirmacionForm(request.POST, instance=id)
-        form.save()
-        return redirect("confirmaciones")
+    confirmacion = get_object_or_404(Confirmacion, pk=id)
+    form = ConfirmacionForm(instance=confirmacion)
+
+    if request.method == "POST":
+        form = ConfirmacionForm(request.POST, instance=confirmacion)
+
+        if form.is_valid():
+            form.save()
+            return redirect("confirmaciones")
+
+    return render(request, "confirmacion/editar.html", {"form": form, "id": id})
 
 
 def eliminar_confirmacion(request, id):
-    db_data = Confirmacion.objects.filter(id=id)
-    db_data.delete()
-    return redirect("confirmaciones")
+    confirmacion = get_object_or_404(Confirmacion, id=id)
+    form = EliminarConfirmacionForm(instance=confirmacion)
+
+    if request.method == "POST":
+        confirmacion.delete()
+        return redirect("comuniones")
+
+    return render(request, "confirmacion/eliminar.html", {"form": form, "id": id})
