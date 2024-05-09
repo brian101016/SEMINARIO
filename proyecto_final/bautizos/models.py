@@ -25,7 +25,7 @@ class Bautizo(Sacramento):
         help_text="Ciudad y lugar de nacimiento."
     )
     folio_acta_nacimiento = models.CharField(
-        max_length=100,
+        max_length=32,
         help_text="Folio del acta de nacimiento según como aparezca en el registro civil."
     )
     padre = models.CharField(
@@ -37,11 +37,11 @@ class Bautizo(Sacramento):
         help_text="Nombre completo de la madre."
     )
     abuelos_paternos = models.CharField(
-        max_length=100,
+        max_length=200,
         help_text="Nombre completo de los abuelos paternos, separado con espacios y coma donde sea necesario."
     )
     abuelos_maternos = models.CharField(
-        max_length=100,
+        max_length=200,
         help_text="Nombre completo de los abuelos maternos, separado con espacios y coma donde sea necesario."
     )
     padrino = models.CharField(
@@ -59,7 +59,6 @@ class Bautizo(Sacramento):
         help_text="Notas marginales aplicables."
     )
 
-    # Método str para retornar algo legible
     def __str__(self):
         text = self.sacramento_str()
         return f"Bautizo de {self.nombre}. " + text

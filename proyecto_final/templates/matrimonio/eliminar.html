@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %} {% block content %}
+
+<h1>Página de Matrimonios</h1>
+
+<h2>Eliminar matrimonio</h2>
+
+<a href="{% url 'matrimonios' %}">Regresar</a>
+
+<form action="{% url 'eliminar_matrimonio' id %}" method="POST" novalidate>
+  {% csrf_token %} {{ form }}
+
+  <button>Confirmar eliminación</button>
+</form>
+
+{% endblock %}

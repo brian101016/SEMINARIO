@@ -1,49 +1,66 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required, permission_required
+from django.db.models import Q
+
+
 from .models import Matrimonio
-from .forms import MatrimonioForm
-# Create your views here.
+from .forms import (
+    BuscarMatrimonioForm,
+    MatrimonioForm,
+    EliminarMatrimonioForm,
+)
 
-from matrimonios.forms import MatrimonioForm
 
-def mostrarMatrimonios(request):
-    matrimonios = Matrimonio.objects.order_by('id')
-    return render(request, 'indexMatrimonio.html',
-    {'matrimonios': matrimonios})
+def index(request):
+    form = BuscarMatrimonioForm()
+    matrimonios = Matrimonio.objects.all()
 
-def nuevoMatrimonio(request):
-    if request.method == 'POST':
-        formaMatrimonio = MatrimonioForm(request.POST)
+    if request.method == "POST":
+        form = BuscarMatrimonioForm(request.POST)
+        if form.is_valid():
+            busqueda = ""
+            matrimonios = Matrimonio.objects.filter(
+                Q(novio__icontains=busqueda) | Q(novia__icontains=busqueda)
+            )
+            # AQUI PONEMOS TODOS LOS CAMPOS
 
-        if formaMatrimonio.is_valid():
-            formaMatrimonio.save()
-            return redirect('index')
-        else:
-            return render(request, 'nuevoMatrimonio.html',
-            {'formaMatrimonio': formaMatrimonio})
-    else:
-        formaMatrimonio = MatrimonioForm()
-        return render(request, 'nuevoMatrimonio.html',
-        {'formaMatrimonio': formaMatrimonio})
+    return render(
+        request, "matrimonio/index.html", {"matrimonios": matrimonios, "form": form}
+    )
 
-def editarMatrimonio(request, id):
+
+def crear_matrimonio(request):
+    form = MatrimonioForm()
+
+    if request.method == "POST":
+        form = MatrimonioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("matrimonios")
+
+    return render(request, "matrimonio/crear.html", {"form": form})
+
+
+def editar_matrimonio(request, id):
+    matrimonio = get_object_or_404(Matrimonio, pk=id)
+    form = MatrimonioForm(instance=matrimonio)
+
+    if request.method == "POST":
+        form = MatrimonioForm(request.POST, instance=matrimonio)
+
+        if form.is_valid():
+            form.save()
+            return redirect("matrimonios")
+
+    return render(request, "matrimonio/editar.html", {"form": form, "id": id})
+
+
+def eliminar_matrimonio(request, id):
     matrimonio = get_object_or_404(Matrimonio, id=id)
-    if request.method == 'POST':
-        formaMatrimonio = MatrimonioForm(request.POST, instance=matrimonio)
+    form = EliminarMatrimonioForm(instance=matrimonio)
 
-        if formaMatrimonio.is_valid():
-            formaMatrimonio.save()
-            return redirect('index')
-        else:
-            return render(request,'editarMatrimonio.html',
-            {'formaMatrimonio': formaMatrimonio})
-    else:
-        matrimonio = get_object_or_404(Matrimonio, id=id)
-        formaMatrimonio = MatrimonioForm(instance=matrimonio)
-        return render(request,'editarMatrimonio.html',
-        {'formaMatrimonio': formaMatrimonio})
+    if request.method == "POST":
+        matrimonio.delete()
+        return redirect("matrimonios")
 
-def eliminarMatrimonio(request, id):
-
-    matrimonio = Matrimonio.objects.filter(id = id)
-    matrimonio.delete()
-    return redirect('index')
+    return render(request, "matrimonio/eliminar.html", {"form": form, "id": id})

@@ -13,18 +13,18 @@ from webapp.utils import (
 
 
 class BuscarBautizoForm(BuscarSacramentoForm):
-    nombre = forms.CharField(max_length=255, required=False)
+    nombre = forms.CharField(required=False)
     sexo = SexoBuscarField()
     fecha_nacimiento = FechaAnteriorField(required=False)
-    ciudad_nacimiento = forms.CharField(max_length=255, required=False)
-    folio_acta_nacimiento = forms.CharField(max_length=255, required=False)
-    padre = forms.CharField(max_length=255, required=False)
-    madre = forms.CharField(max_length=255, required=False)
-    abuelos_paternos = forms.CharField(max_length=255, required=False)
-    abuelos_maternos = forms.CharField(max_length=255, required=False)
-    padrino = forms.CharField(max_length=255, required=False)
-    madrina = forms.CharField(max_length=255, required=False)
-    notas_marginales = forms.CharField(max_length=255, required=False)
+    ciudad_nacimiento = forms.CharField(required=False)
+    folio_acta_nacimiento = forms.CharField(required=False)
+    padre = forms.CharField(required=False)
+    madre = forms.CharField(required=False)
+    abuelos_paternos = forms.CharField(required=False)
+    abuelos_maternos = forms.CharField(required=False)
+    padrino = forms.CharField(required=False)
+    madrina = forms.CharField(required=False)
+    notas_marginales = forms.CharField(required=False)
 
 
 class BautizoForm(SacramentoForm):

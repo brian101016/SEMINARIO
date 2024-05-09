@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %} {% block content %}
+
+<h1>Página de Matrimonios</h1>
+
+<h2>Editar matrimonio</h2>
+
+<a href="{% url 'matrimonios' %}">Regresar</a>
+
+<form action="{% url 'editar_matrimonio' id %}" method="POST">
+  {% csrf_token %} {{ form }}
+
+  <button>Guardar cambios</button>
+</form>
+
+{% endblock %}

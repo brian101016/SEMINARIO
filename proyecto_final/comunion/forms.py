@@ -13,13 +13,13 @@ from webapp.utils import (
 
 
 class BuscarComunionForm(BuscarSacramentoForm):
-    nombre = forms.CharField(max_length=255, required=False)
+    nombre = forms.CharField(required=False)
     sexo = SexoBuscarField()
-    padre = forms.CharField(max_length=255, required=False)
-    madre = forms.CharField(max_length=255, required=False)
-    padrino_madrina = forms.CharField(max_length=255, required=False)
-    ciudad_bautizo = forms.CharField(max_length=255, required=False)
-    parroquia_bautizo = forms.CharField(max_length=255, required=False)
+    padre = forms.CharField(required=False)
+    madre = forms.CharField(required=False)
+    padrino_madrina = forms.CharField(required=False)
+    ciudad_bautizo = forms.CharField(required=False)
+    parroquia_bautizo = forms.CharField(required=False)
     fecha_bautizo = FechaAnteriorField(required=False)
 
 
