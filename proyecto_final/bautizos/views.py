@@ -26,7 +26,7 @@ def index(request):
             )
             # AQUI PONEMOS TODOS LOS CAMPOS
 
-    return render(request, "bautizo/index.html", {"bautizos": bautizos, "form": form})
+    return render(request, "bautizos/index.html", {"bautizos": bautizos, "form": form})
 
 
 def crear_bautizo(request):
@@ -38,7 +38,7 @@ def crear_bautizo(request):
             form.save()
             return redirect("bautizos")
 
-    return render(request, "bautizo/crear.html", {"form": form})
+    return render(request, "bautizos/crear.html", {"form": form})
 
 
 def editar_bautizo(request, id):
@@ -52,7 +52,7 @@ def editar_bautizo(request, id):
             form.save()
             return redirect("bautizos")
 
-    return render(request, "bautizo/editar.html", {"form": form, "id": id})
+    return render(request, "bautizos/editar.html", {"form": form, "id": id})
 
 
 def eliminar_bautizo(request, id):
@@ -63,4 +63,4 @@ def eliminar_bautizo(request, id):
         bautizo.delete()
         return redirect("bautizos")
 
-    return render(request, "bautizo/eliminar.html", {"form": form, "id": id})
+    return render(request, "bautizos/eliminar.html", {"form": form, "id": id})

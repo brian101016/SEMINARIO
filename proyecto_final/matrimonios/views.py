@@ -25,7 +25,7 @@ def index(request):
             # AQUI PONEMOS TODOS LOS CAMPOS
 
     return render(
-        request, "matrimonio/index.html", {"matrimonios": matrimonios, "form": form}
+        request, "matrimonios/index.html", {"matrimonios": matrimonios, "form": form}
     )
 
 
@@ -38,7 +38,7 @@ def crear_matrimonio(request):
             form.save()
             return redirect("matrimonios")
 
-    return render(request, "matrimonio/crear.html", {"form": form})
+    return render(request, "matrimonios/crear.html", {"form": form})
 
 
 def editar_matrimonio(request, id):
@@ -52,7 +52,7 @@ def editar_matrimonio(request, id):
             form.save()
             return redirect("matrimonios")
 
-    return render(request, "matrimonio/editar.html", {"form": form, "id": id})
+    return render(request, "matrimonios/editar.html", {"form": form, "id": id})
 
 
 def eliminar_matrimonio(request, id):
@@ -63,4 +63,4 @@ def eliminar_matrimonio(request, id):
         matrimonio.delete()
         return redirect("matrimonios")
 
-    return render(request, "matrimonio/eliminar.html", {"form": form, "id": id})
+    return render(request, "matrimonios/eliminar.html", {"form": form, "id": id})

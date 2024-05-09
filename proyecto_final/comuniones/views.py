@@ -28,7 +28,7 @@ def index(request):
             # AQUI PONEMOS TODOS LOS CAMPOS
 
     return render(
-        request, "comunion/index.html", {"comuniones": comuniones, "form": form}
+        request, "comuniones/index.html", {"comuniones": comuniones, "form": form}
     )
 
 
@@ -41,7 +41,7 @@ def crear_comunion(request):
             form.save()
             return redirect("comuniones")
 
-    return render(request, "comunion/crear.html", {"form": form})
+    return render(request, "comuniones/crear.html", {"form": form})
 
 
 def editar_comunion(request, id):
@@ -55,7 +55,7 @@ def editar_comunion(request, id):
             form.save()
             return redirect("comuniones")
 
-    return render(request, "comunion/editar.html", {"form": form, "id": id})
+    return render(request, "comuniones/editar.html", {"form": form, "id": id})
 
 
 def eliminar_comunion(request, id):
@@ -66,4 +66,4 @@ def eliminar_comunion(request, id):
         comunion.delete()
         return redirect("comuniones")
 
-    return render(request, "comunion/eliminar.html", {"form": form, "id": id})
+    return render(request, "comuniones/eliminar.html", {"form": form, "id": id})

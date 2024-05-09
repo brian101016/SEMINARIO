@@ -29,7 +29,7 @@ def index(request):
 
     return render(
         request,
-        "confirmacion/index.html",
+        "confirmaciones/index.html",
         {"confirmaciones": confirmaciones, "form": form},
     )
 
@@ -43,7 +43,7 @@ def crear_confirmacion(request):
             form.save()
             return redirect("confirmaciones")
 
-    return render(request, "confirmacion/crear.html", {"form": form})
+    return render(request, "confirmaciones/crear.html", {"form": form})
 
 
 def editar_confirmacion(request, id):
@@ -57,7 +57,7 @@ def editar_confirmacion(request, id):
             form.save()
             return redirect("confirmaciones")
 
-    return render(request, "confirmacion/editar.html", {"form": form, "id": id})
+    return render(request, "confirmaciones/editar.html", {"form": form, "id": id})
 
 
 def eliminar_confirmacion(request, id):
@@ -68,4 +68,4 @@ def eliminar_confirmacion(request, id):
         confirmacion.delete()
         return redirect("comuniones")
 
-    return render(request, "confirmacion/eliminar.html", {"form": form, "id": id})
+    return render(request, "confirmaciones/eliminar.html", {"form": form, "id": id})

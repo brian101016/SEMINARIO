@@ -36,7 +36,7 @@ def index(request):
 
     return render(
         request,
-        "usuario/index.html",
+        "usuarios/index.html",
         {"usuarios": usuarios_formato, "form": form},
     )
 
@@ -50,7 +50,7 @@ def crear_usuario(request):
             form.save()
             return redirect("usuarios")
 
-    return render(request, "usuario/crear.html", {"form": form})
+    return render(request, "usuarios/crear.html", {"form": form})
 
 
 def editar_usuario(request, id):
@@ -66,7 +66,7 @@ def editar_usuario(request, id):
             form.save()
             return redirect("usuarios")
 
-    return render(request, "usuario/editar.html", {"form": form, "id": id})
+    return render(request, "usuarios/editar.html", {"form": form, "id": id})
 
 
 def eliminar_usuario(request, id):
@@ -79,4 +79,4 @@ def eliminar_usuario(request, id):
             usuario.delete()
         return redirect("usuarios")
 
-    return render(request, "usuario/eliminar.html", {"form": form, "id": id})
+    return render(request, "usuarios/eliminar.html", {"form": form, "id": id})
