@@ -28,6 +28,8 @@ class Sacramento(models.Model):
     )
     notas = models.CharField(
         max_length=1000,
+        blank=True,
+        default="N/A",
         help_text="Cualquier consideración o notas adicionales.",
     )
 

@@ -1,0 +1,78 @@
+{% extends "base_generic.html" %} {% block content %}
+
+<h1>Página de Bautizos</h1>
+
+<h2>Tabla de bautizos</h2>
+
+<a href="{% url 'crear_bautizo' %}">Crear nuevo bautizo</a>
+
+<form action="{% url 'bautizos' %}" method="POST">
+  {% csrf_token %}
+
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Sexo</th>
+        <th>Fecha de nacimiento</th>
+        <th>Ciudad de nacimiento</th>
+        <th>Folio de acta</th>
+        <th>Padre</th>
+        <th>Madre</th>
+        <th>Abuelos paternos</th>
+        <th>Abuelos maternos</th>
+        <th>Padrino</th>
+        <th>Madrina</th>
+        <th>Notas marginales</th>
+        <th colspan="2">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ form.nombre }}</td>
+        <td>{{ form.sexo }}</td>
+        <td>{{ form.fecha_nacimiento }}</td>
+        <td>{{ form.ciudad_nacimiento }}</td>
+        <td>{{ form.folio_acta_nacimiento }}</td>
+        <td>{{ form.padre }}</td>
+        <td>{{ form.madre }}</td>
+        <td>{{ form.abuelos_paternos }}</td>
+        <td>{{ form.abuelos_maternos }}</td>
+        <td>{{ form.padrino }}</td>
+        <td>{{ form.madrina }}</td>
+        <td>{{ form.notas_marginales }}</td>
+        <td>
+          <button>Filtrar campos</button>
+        </td>
+        <td>
+          <a class="btn-1" href="{% url 'bautizos' %}">Limpiar campos</a>
+        </td>
+      </tr>
+
+      {% for item in bautizos %}
+      <tr>
+        <td>{{ item.nombre }}</td>
+        <td>{% if item.sexo %} Mujer {% else %} Hombre {% endif %}</td>
+        <td>{{ item.fecha_nacimiento }}</td>
+        <td>{{ item.ciudad_nacimiento }}</td>
+        <td>{{ item.folio_acta_nacimiento }}</td>
+        <td>{{ item.padre }}</td>
+        <td>{{ item.madre }}</td>
+        <td>{{ item.abuelos_paternos }}</td>
+        <td>{{ item.abuelos_maternos }}</td>
+        <td>{{ item.padrino }}</td>
+        <td>{{ item.madrina }}</td>
+        <td>{{ item.notas_marginales }}</td>
+        <td>
+          <a class="btn-2" href="{% url 'editar_bautizo' item.id %}">Editar</a>
+        </td>
+        <td>
+          <a class="btn-3" href="{% url 'eliminar_bautizo' item.id %}">Borrar</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</form>
+
+{% endblock %}

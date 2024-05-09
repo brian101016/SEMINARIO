@@ -23,7 +23,7 @@ from webapp import views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.index, name="index"),
-    path("bautizos/", views.bautizos_WIP, name="bautizos"),
+    path("bautizos/", include("bautizos.urls"), name="bautizos"),
     path("comuniones/", include("comunion.urls")),
     path("confirmaciones/", include("confirmacion.urls"), name="confirmaciones"),
     path("matrimonios/", views.matrimonios_WIP, name="matrimonios"),

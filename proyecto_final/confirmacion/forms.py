@@ -7,10 +7,12 @@ from webapp.utils import (
     SexoField,
     SexoBuscarField,
     ReadOnlyFormMixin,
+    BuscarSacramentoForm,
+    SacramentoForm,
 )
 
 
-class BuscarConfirmacionForm(forms.Form):
+class BuscarConfirmacionForm(BuscarSacramentoForm):
     nombre = forms.CharField(max_length=255, required=False)
     sexo = SexoBuscarField()
     padre = forms.CharField(max_length=255, required=False)
@@ -21,11 +23,13 @@ class BuscarConfirmacionForm(forms.Form):
     fecha_bautizo = FechaAnteriorField(required=False)
 
 
-class ConfirmacionForm(forms.ModelForm):
+class ConfirmacionForm(SacramentoForm):
     sexo = SexoField()
-    fecha_bautizo = FechaAnteriorField(label="Fecha de bautizo")
+    fecha_bautizo = FechaAnteriorField(
+        label="Fecha de bautizo", help_text="Fecha de cuando se recibió el bautismo."
+    )
 
-    class Meta:
+    class Meta(SacramentoForm.Meta):
         model = Confirmacion
         fields = "__all__"
         labels = {

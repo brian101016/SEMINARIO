@@ -6,6 +6,10 @@ from django.forms import (
     NullBooleanField,
     Select,
     ModelForm,
+    Form,
+    IntegerField,
+    CharField,
+    Textarea,
 )
 from django.core.exceptions import ValidationError
 import datetime
@@ -86,6 +90,36 @@ class SexoBuscarField(NullBooleanField):
         "invalid": "Ingrese 'Hombre', 'Mujer' o 'Cualquiera'",
         "invalid_nullable": "Ingrese 'Hombre', 'Mujer' o 'Cualquiera'",
     }
+
+
+class SacramentoForm(ModelForm):
+    fecha_sacramento = FechaAnteriorField(
+        label="Fecha de este sacramento",
+        help_text="Fecha cuando se ejerció el sacramento.",
+    )
+
+    class Meta:
+        fields = "__all__"
+        labels = {
+            "presbitero": "Presbítero a cargo",
+            "libro": "Número del libro",
+            "pagina": "Número de la página",
+            "partida": "Número de la partida",
+            "notas": "Notas adicionales (opcional)",
+        }
+
+        widgets = {
+            "notas": Textarea(attrs={"cols": 50, "rows": 4}),
+        }
+
+
+class BuscarSacramentoForm(Form):
+    fecha_sacramento = FechaAnteriorField(required=False)
+    presbitero = CharField(max_length=255, required=False)
+    libro = IntegerField(min_value=0, required=False)
+    pagina = IntegerField(min_value=0, required=False)
+    partida = IntegerField(min_value=0, required=False)
+    notas = CharField(max_length=1000, required=False)
 
 
 SEXO_CHOICE = [(False, "Hombre"), (True, "Mujer")]
