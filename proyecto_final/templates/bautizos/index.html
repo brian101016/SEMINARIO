@@ -1,8 +1,10 @@
 {% extends "base_generic.html" %} {% block content %}
 
-<h1>Página de Bautizos</h1>
+{% block title %}
+<title>Página de Bautizos</title>
+{% endblock %}
 
-<h2>Tabla de bautizos</h2>
+<h2>Bautizos -> Buscar</h2>
 
 <a href="{% url 'crear_bautizo' %}">Crear nuevo bautizo</a>
 
@@ -24,6 +26,12 @@
         <th>Padrino</th>
         <th>Madrina</th>
         <th>Notas marginales</th>
+        <th>Fecha de sacramento</th>
+        <th>Presbítero</th>
+        <th>Libro</th>
+        <th>Página</th>
+        <th>Partida</th>
+        <th>Notas adicionales</th>
         <th colspan="2">Acciones</th>
       </tr>
     </thead>
@@ -41,6 +49,12 @@
         <td>{{ form.padrino }}</td>
         <td>{{ form.madrina }}</td>
         <td>{{ form.notas_marginales }}</td>
+        <td>{{ form.fecha_sacramento }}</td>
+        <td>{{ form.presbitero }}</td>
+        <td>{{ form.libro }}</td>
+        <td>{{ form.pagina }}</td>
+        <td>{{ form.partida }}</td>
+        <td>{{ form.notas }}</td>
         <td>
           <button>Filtrar campos</button>
         </td>
@@ -63,6 +77,12 @@
         <td>{{ item.padrino }}</td>
         <td>{{ item.madrina }}</td>
         <td>{{ item.notas_marginales }}</td>
+        <td>{{ item.fecha_sacramento }}</td>
+        <td>{{ item.presbitero }}</td>
+        <td>{{ item.libro }}</td>
+        <td>{{ item.pagina }}</td>
+        <td>{{ item.partida }}</td>
+        <td>{{ item.notas }}</td>
         <td>
           <a class="btn-2" href="{% url 'editar_bautizo' item.id %}">Editar</a>
         </td>

@@ -17,7 +17,6 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from .views import matrimonios
 
 from webapp import views
 
@@ -25,8 +24,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.index, name="index"),
     path("bautizos/", include("bautizos.urls"), name="bautizos"),
-    path("comuniones/", include("comunion.urls")),
-    path("confirmaciones/", include("confirmacion.urls"), name="confirmaciones"),
-    path("matrimonios/", views.matrimonios_WIP, name="matrimonios"),
+    path("comuniones/", include("comuniones.urls")),
+    path("confirmaciones/", include("confirmaciones.urls"), name="confirmaciones"),
+    path("matrimonios/", include("matrimonios.urls"), name="matrimonios"),
     path("usuarios/", include("usuarios.urls")),
 ]

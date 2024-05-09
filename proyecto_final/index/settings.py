@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "usuarios",
     "webapp",
-    "comunion",
-    "confirmacion",
+    "comuniones",
+    "confirmaciones",
     "bautizos",
     "matrimonios",
 ]

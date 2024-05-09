@@ -20,6 +20,12 @@
         <th>Ciudad de Bautizo</th>
         <th>Parroquia de Bautizo</th>
         <th>Fecha de Bautizo</th>
+        <th>Fecha de sacramento</th>
+        <th>Presbítero</th>
+        <th>Libro</th>
+        <th>Página</th>
+        <th>Partida</th>
+        <th>Notas adicionales</th>
         <th colspan="2">Acciones</th>
       </tr>
     </thead>
@@ -33,6 +39,12 @@
         <td>{{ form.ciudad_bautizo }}</td>
         <td>{{ form.parroquia_bautizo }}</td>
         <td>{{ form.fecha_bautizo }}</td>
+        <td>{{ form.fecha_sacramento }}</td>
+        <td>{{ form.presbitero }}</td>
+        <td>{{ form.libro }}</td>
+        <td>{{ form.pagina }}</td>
+        <td>{{ form.partida }}</td>
+        <td>{{ form.notas }}</td>
         <td>
           <button>Filtrar campos</button>
         </td>
@@ -51,15 +63,17 @@
         <td>{{ item.ciudad_bautizo }}</td>
         <td>{{ item.parroquia_bautizo }}</td>
         <td>{{ item.fecha_bautizo }}</td>
+        <td>{{ item.fecha_sacramento }}</td>
+        <td>{{ item.presbitero }}</td>
+        <td>{{ item.libro }}</td>
+        <td>{{ item.pagina }}</td>
+        <td>{{ item.partida }}</td>
+        <td>{{ item.notas }}</td>
         <td>
-          <a class="btn-2" href="{% url 'editar_confirmacion' item.id %}"
-            >Editar</a
-          >
+          <a class="btn-2" href="{% url 'editar_confirmacion' item.id %}">Editar</a>
         </td>
         <td>
-          <a class="btn-3" href="{% url 'eliminar_confirmacion' item.id %}"
-            >Eliminar</a
-          >
+          <a class="btn-3" href="{% url 'eliminar_confirmacion' item.id %}">Eliminar</a>
         </td>
       </tr>
       {% endfor %}

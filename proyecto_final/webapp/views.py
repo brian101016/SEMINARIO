@@ -3,14 +3,17 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.models import User
 
 
-from comunion.models import Comunion
+from bautizos.models import Bautizo
+from comuniones.models import Comunion
+from confirmaciones.models import Confirmacion
+from matrimonios.models import Matrimonio
 
 
 def index(request):
-    bautizos_total = 0  # Persona.objects.count()
+    bautizos_total = Bautizo.objects.count()
     comuniones_total = Comunion.objects.count()
-    confirmaciones_total = 0  # Persona.objects.count()
-    matrimonios_total = 0  # Persona.objects.count()
+    confirmaciones_total = Confirmacion.objects.count()
+    matrimonios_total = Matrimonio.objects.count()
     usuarios_total = User.objects.count()
 
     return render(
@@ -25,11 +28,3 @@ def index(request):
             "user": request.user,
         },
     )
-
-
-def bautizos_WIP(request):
-    return HttpResponse("bautizos WIP")
-
-
-def matrimonios_WIP(request):
-    return HttpResponse("matrimonios WIP")

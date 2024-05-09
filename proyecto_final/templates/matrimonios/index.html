@@ -20,6 +20,12 @@
         <th>Padres de la novia</th>
         <th>Testigos</th>
         <th>Presentación matrimonial</th>
+        <th>Fecha de sacramento</th>
+        <th>Presbítero</th>
+        <th>Libro</th>
+        <th>Página</th>
+        <th>Partida</th>
+        <th>Notas adicionales</th>
         <th colspan="2">Acciones</th>
       </tr>
     </thead>
@@ -33,6 +39,12 @@
         <td>{{ form.padres_novia }}</td>
         <td>{{ form.testigos }}</td>
         <td>{{ form.presentacion }}</td>
+        <td>{{ form.fecha_sacramento }}</td>
+        <td>{{ form.presbitero }}</td>
+        <td>{{ form.libro }}</td>
+        <td>{{ form.pagina }}</td>
+        <td>{{ form.partida }}</td>
+        <td>{{ form.notas }}</td>
         <td>
           <button>Filtrar campos</button>
         </td>
@@ -51,6 +63,12 @@
         <td>{{ item.padres_novia }}</td>
         <td>{{ item.testigos }}</td>
         <td>{{ item.presentacion }}</td>
+        <td>{{ item.fecha_sacramento }}</td>
+        <td>{{ item.presbitero }}</td>
+        <td>{{ item.libro }}</td>
+        <td>{{ item.pagina }}</td>
+        <td>{{ item.partida }}</td>
+        <td>{{ item.notas }}</td>
         <td>
           <a class="btn-2" href="{% url 'editar_matrimonio' item.id %}">Editar</a>
         </td>

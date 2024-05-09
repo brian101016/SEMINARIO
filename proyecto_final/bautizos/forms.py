@@ -49,6 +49,28 @@ class BautizoForm(SacramentoForm):
             "notas_marginales": "Notas marginales aplicables",
         }
 
+    def clean(self):
+        data = super().clean()
+
+        fecha_nac = data["fecha_nacimiento"]
+        fecha_sac = data["fecha_sacramento"]
+
+        if fecha_nac == None or fecha_sac == None:
+            raise forms.ValidationError(
+                "Por favor ingresa una fecha válida", "invalid_date"
+            )
+
+        if fecha_nac >= fecha_sac:
+            self.add_error(
+                "fecha_sacramento",
+                error=forms.ValidationError(
+                    "La Fecha de Sacramento no puede ser menor que la Fecha de Nacimiento",
+                    "invalid_date",
+                ),
+            )
+
+        return data
+
 
 class EliminarBautizoForm(ReadOnlyFormMixin, BautizoForm):
     pass

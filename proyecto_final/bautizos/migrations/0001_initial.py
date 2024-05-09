@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Confirmacion',
+            name='Bautizo',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('fecha_sacramento', models.DateField(default=django.utils.timezone.now, help_text='Fecha cuando se ejerció el sacramento.')),
@@ -22,14 +22,18 @@ class Migration(migrations.Migration):
                 ('pagina', models.PositiveSmallIntegerField(help_text='Representa el número de página según el libro.')),
                 ('partida', models.PositiveSmallIntegerField(help_text='Representa el número de partida según la página.')),
                 ('notas', models.CharField(blank=True, default='N/A', help_text='Cualquier consideración o notas adicionales.', max_length=1000)),
-                ('nombre', models.CharField(help_text='Nombre completo de quien recibe el sacramento.', max_length=100)),
+                ('nombre', models.CharField(help_text='Nombre completo del bebé.', max_length=100)),
                 ('sexo', models.BooleanField(help_text="Sexo según: 'False' para hombre, 'True' para mujer.")),
+                ('fecha_nacimiento', models.DateField(help_text='Fecha de nacimiento del bebé.')),
+                ('ciudad_nacimiento', models.CharField(default='Hermosillo, Sonora', help_text='Ciudad y lugar de nacimiento.', max_length=100)),
+                ('folio_acta_nacimiento', models.CharField(help_text='Folio del acta de nacimiento según como aparezca en el registro civil.', max_length=32)),
                 ('padre', models.CharField(help_text='Nombre completo del padre.', max_length=100)),
                 ('madre', models.CharField(help_text='Nombre completo de la madre.', max_length=100)),
-                ('padrino_madrina', models.CharField(help_text='Nombre completo del padrino o madrina.', max_length=100)),
-                ('ciudad_bautizo', models.CharField(default='Hermosillo, Sonora', help_text='Ciudad donde se recibió el bautismo.', max_length=100)),
-                ('parroquia_bautizo', models.CharField(help_text='Parroquia donde se recibió el bautismo.', max_length=100)),
-                ('fecha_bautizo', models.DateField(help_text='Fecha de cuando se recibió el bautismo.')),
+                ('abuelos_paternos', models.CharField(help_text='Nombre completo de los abuelos paternos, separado con espacios y coma donde sea necesario.', max_length=200)),
+                ('abuelos_maternos', models.CharField(help_text='Nombre completo de los abuelos maternos, separado con espacios y coma donde sea necesario.', max_length=200)),
+                ('padrino', models.CharField(help_text='Nombre completo del padrino.', max_length=100)),
+                ('madrina', models.CharField(help_text='Nombre completo de la madrina.', max_length=100)),
+                ('notas_marginales', models.CharField(blank=True, default='N/A', help_text='Notas marginales aplicables.', max_length=1000)),
             ],
             options={
                 'ordering': ['-fecha_sacramento', 'nombre'],

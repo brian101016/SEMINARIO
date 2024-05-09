@@ -43,7 +43,7 @@ class FechaAnteriorField(DateField):
             **kwargs,
             required=required,
             input_formats=input_formats,
-            widget=widget
+            widget=widget,
         )
 
     def clean(self, value):
@@ -71,9 +71,12 @@ class SexoField(BooleanField):
         )
 
     error_messages = {
-        "invalid": "Ingrese 'Hombre' o 'Mujer'",
-        "invalid_nullable": "Ingrese 'Hombre' o 'Mujer'",
+        "required": "Ingrese 'Hombre' o 'Mujer'",
     }
+
+    def validate(self, value):
+        if value != False and value != True and self.required:
+            raise ValidationError(self.error_messages["required"], code="required")
 
 
 class SexoBuscarField(NullBooleanField):
@@ -88,7 +91,6 @@ class SexoBuscarField(NullBooleanField):
 
     error_messages = {
         "invalid": "Ingrese 'Hombre', 'Mujer' o 'Cualquiera'",
-        "invalid_nullable": "Ingrese 'Hombre', 'Mujer' o 'Cualquiera'",
     }
 
 
@@ -115,11 +117,11 @@ class SacramentoForm(ModelForm):
 
 class BuscarSacramentoForm(Form):
     fecha_sacramento = FechaAnteriorField(required=False)
-    presbitero = CharField(max_length=255, required=False)
+    presbitero = CharField(required=False)
     libro = IntegerField(min_value=0, required=False)
     pagina = IntegerField(min_value=0, required=False)
     partida = IntegerField(min_value=0, required=False)
-    notas = CharField(max_length=1000, required=False)
+    notas = CharField(required=False)
 
 
 SEXO_CHOICE = [(False, "Hombre"), (True, "Mujer")]

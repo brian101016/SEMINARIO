@@ -41,6 +41,28 @@ class ComunionForm(SacramentoForm):
             "parroquia_bautizo": "Parroquia de bautizo",
         }
 
+    def clean(self):
+        data = super().clean()
+
+        fecha_bau = data["fecha_bautizo"]
+        fecha_sac = data["fecha_sacramento"]
+
+        if fecha_bau == None or fecha_sac == None:
+            raise forms.ValidationError(
+                "Por favor ingresa una fecha válida", "invalid_date"
+            )
+
+        if fecha_bau >= fecha_sac:
+            self.add_error(
+                "fecha_sacramento",
+                error=forms.ValidationError(
+                    "La Fecha de Sacramento no puede ser menor que la Fecha de Bautizo",
+                    "invalid_date",
+                ),
+            )
+
+        return data
+
 
 class EliminarComunionForm(ReadOnlyFormMixin, ComunionForm):
     pass
