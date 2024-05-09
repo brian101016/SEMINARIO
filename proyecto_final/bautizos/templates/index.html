@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Detalle de los datos</title>
+  </head>
+  <body>
+    <h1>Bautizos</h1>
+    {% for bautizos in bautizos %}
+    <form>
+      <div>ID BAUTIZO: {{bautizos.id}}</div>
+      <div>NOMBRE: {{bautizos.nombre}}</div>
+      <div>sexo: {{bautizos.sexo}}</div>
+      <div>FECHA DE NACIMIENTO: {{bautizos.fecha_nacimiento}}</div>
+      <div>CIUDAD DEL NACIMIENTO: {{bautizos.ciudad_nacimiento}}</div>
+      <div>FOLIO ACTA DE NACIMIENTO: {{bautizos.folio_acta_nacimiento}}</div>
+      <div>PADRE: {{bautizos.padre}}</div>
+      <div>MADRE: {{bautizos.madre}}</div>
+      <div>ABUELOS PATERNOS: {{bautizos.abuelos_paternos}}</div>
+      <div>ABUELOS MATERNOS: {{bautizos.abuelos_maternos}}</div>
+      <div>PADRINO: {{bautizos.padrino}}</div>
+      <div>MADRINA: {{bautizos.madrina}}</div>
+      <div>FECHA DEL SACRAMENTO: {{bautizos.fecha_sacramento}}</div>
+      <div>PRESBITERO: {{bautizos.presbitero}}</div>
+      <div>LIBRO: {{bautizos.libro}}</div>
+      <div>PÁGINA: {{bautizos.pagina}}</div>
+      <div>PARTIDA: {{bautizos.partida}}</div>
+      <div>NOTAS: {{bautizos.notas}}</div>
+
+      <button><a href={% url "update" bautizos.id %}>Editar</a></button>
+      <button><a href={% url "delete" bautizos.id %}>Eliminar</a></button>
+
+    </form>
+    <br />
+    {% endfor %}
+  </body>
+</html>

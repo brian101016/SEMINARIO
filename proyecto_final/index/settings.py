@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "webapp",
     "comunion",
     "confirmacion",
+    "bautizos",
 ]
 
 MIDDLEWARE = [
