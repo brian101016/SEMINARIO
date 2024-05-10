@@ -7,7 +7,7 @@
     <div class="flex-h2-btn">
       <h2>Bautizos</h2>
       {% if perms.usuarios.write %}
-        <button class="btn-create"><a href="{% url 'crear_bautizo' %}">Crear nuevo bautizo</a></button>
+        <a class="btn-create" href="{% url 'crear_bautizo' %}">Crear nuevo bautizo</a>
       {% endif %}
     </div>
     <div class="table-container">

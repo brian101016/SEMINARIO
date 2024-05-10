@@ -6,7 +6,7 @@
   <div class="container">
     <div class="flex-h2-btn">
       <h2>Mostrar usuarios</h2>
-      <button class="btn-create"><a href="{% url 'crear_usuario' %}">Crear nuevo usuario</a></button>
+      <a class="btn-create" href="{% url 'crear_usuario' %}">Crear nuevo usuario</a>
     </div>
     <div class="table-container">
       <form action="{% url 'usuarios' %}" method="POST">

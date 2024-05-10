@@ -8,7 +8,7 @@
     <div class="flex-h2-btn">
       <h2>Comuniones</h2>
       {% if perms.usuarios.write %}
-        <button class="btn-create"><a href="{% url 'crear_comunion' %}">Crear nueva comunión</a></button>
+        <a class="btn-create" href="{% url 'crear_comunion' %}">Crear nueva comunión</a>
       {% endif %}
     </div>
     <div class="table-container">

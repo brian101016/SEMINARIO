@@ -207,15 +207,13 @@ form.logout-form {
 }
 
 .container .btn-create {
-  width: 14%;
   margin-left: auto;
   padding: 10px 20px;
   border-radius: 5px;
   border: none;
   cursor: pointer;
   background-color: #007bff;
-  max-width: 11rem;
-  max-height: 3rem;
+  color: white;
 }
 
 .container .btn-create:hover {
@@ -224,10 +222,6 @@ form.logout-form {
 
 .container .btn-create:active {
   background-color: #084688;
-}
-
-.container .btn-create a {
-  color: white;
 }
 
 .container .table-container .btn-create {
@@ -255,6 +249,7 @@ h1 {
   justify-content: space-between;
   padding-top: 3rem;
   margin-bottom: -1rem;
+  align-items: center;
 }
 
 table {
