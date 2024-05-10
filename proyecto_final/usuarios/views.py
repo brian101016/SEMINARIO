@@ -13,6 +13,7 @@ from .forms import (
 from .parse import user_a_usuario
 
 
+@permission_required("usuarios.admin", raise_exception=True)
 def index(request):
     form = BuscarUsuarioForm()
     usuarios = User.objects.all()
@@ -41,6 +42,7 @@ def index(request):
     )
 
 
+@permission_required("usuarios.admin", raise_exception=True)
 def crear_usuario(request):
     form = CrearUsuarioForm()
 
@@ -53,6 +55,7 @@ def crear_usuario(request):
     return render(request, "usuarios/crear.html", {"form": form})
 
 
+@permission_required("usuarios.admin", raise_exception=True)
 def editar_usuario(request, id):
     usuario = get_object_or_404(User, pk=id)
     data = user_a_usuario(usuario)
@@ -69,6 +72,7 @@ def editar_usuario(request, id):
     return render(request, "usuarios/editar.html", {"form": form, "id": id})
 
 
+@permission_required("usuarios.admin", raise_exception=True)
 def eliminar_usuario(request, id):
     usuario = get_object_or_404(User, pk=id)
     data = user_a_usuario(usuario)

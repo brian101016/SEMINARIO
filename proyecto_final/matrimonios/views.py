@@ -11,6 +11,7 @@ from .forms import (
 )
 
 
+@login_required
 def index(request):
     form = BuscarMatrimonioForm()
     matrimonios = Matrimonio.objects.all()
@@ -29,6 +30,7 @@ def index(request):
     )
 
 
+@permission_required("usuarios.write")
 def crear_matrimonio(request):
     form = MatrimonioForm()
 
@@ -41,6 +43,7 @@ def crear_matrimonio(request):
     return render(request, "matrimonios/crear.html", {"form": form})
 
 
+@permission_required("usuarios.write")
 def editar_matrimonio(request, id):
     matrimonio = get_object_or_404(Matrimonio, pk=id)
     form = MatrimonioForm(instance=matrimonio)
@@ -55,6 +58,7 @@ def editar_matrimonio(request, id):
     return render(request, "matrimonios/editar.html", {"form": form, "id": id})
 
 
+@permission_required("usuarios.write")
 def eliminar_matrimonio(request, id):
     matrimonio = get_object_or_404(Matrimonio, id=id)
     form = EliminarMatrimonioForm(instance=matrimonio)

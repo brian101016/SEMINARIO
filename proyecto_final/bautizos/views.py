@@ -11,6 +11,7 @@ from .forms import (
 )
 
 
+@login_required
 def index(request):
     form = BuscarBautizoForm()
     bautizos = Bautizo.objects.all()
@@ -29,6 +30,7 @@ def index(request):
     return render(request, "bautizos/index.html", {"bautizos": bautizos, "form": form})
 
 
+@permission_required("usuarios.write")
 def crear_bautizo(request):
     form = BautizoForm()
 
@@ -41,6 +43,7 @@ def crear_bautizo(request):
     return render(request, "bautizos/crear.html", {"form": form})
 
 
+@permission_required("usuarios.write")
 def editar_bautizo(request, id):
     bautizo = get_object_or_404(Bautizo, pk=id)
     form = BautizoForm(instance=bautizo)
@@ -55,6 +58,7 @@ def editar_bautizo(request, id):
     return render(request, "bautizos/editar.html", {"form": form, "id": id})
 
 
+@permission_required("usuarios.write")
 def eliminar_bautizo(request, id):
     bautizo = get_object_or_404(Bautizo, id=id)
     form = EliminarBautizoForm(instance=bautizo)

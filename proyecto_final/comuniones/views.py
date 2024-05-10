@@ -11,6 +11,7 @@ from .forms import (
 )
 
 
+@login_required
 def index(request):
     form = BuscarComunionForm()
     comuniones = Comunion.objects.all()
@@ -32,6 +33,7 @@ def index(request):
     )
 
 
+@permission_required("usuarios.write")
 def crear_comunion(request):
     form = ComunionForm()
 
@@ -44,6 +46,7 @@ def crear_comunion(request):
     return render(request, "comuniones/crear.html", {"form": form})
 
 
+@permission_required("usuarios.write")
 def editar_comunion(request, id):
     comunion = get_object_or_404(Comunion, pk=id)
     form = ComunionForm(instance=comunion)
@@ -58,6 +61,7 @@ def editar_comunion(request, id):
     return render(request, "comuniones/editar.html", {"form": form, "id": id})
 
 
+@permission_required("usuarios.write")
 def eliminar_comunion(request, id):
     comunion = get_object_or_404(Comunion, id=id)
     form = EliminarComunionForm(instance=comunion)

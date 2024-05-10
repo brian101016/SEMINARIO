@@ -11,6 +11,7 @@ from .forms import (
 )
 
 
+@login_required
 def index(request):
     form = BuscarConfirmacionForm()
     confirmaciones = Confirmacion.objects.all()
@@ -34,6 +35,7 @@ def index(request):
     )
 
 
+@permission_required("usuarios.write")
 def crear_confirmacion(request):
     form = ConfirmacionForm()
 
@@ -46,6 +48,7 @@ def crear_confirmacion(request):
     return render(request, "confirmaciones/crear.html", {"form": form})
 
 
+@permission_required("usuarios.write")
 def editar_confirmacion(request, id):
     confirmacion = get_object_or_404(Confirmacion, pk=id)
     form = ConfirmacionForm(instance=confirmacion)
@@ -60,6 +63,7 @@ def editar_confirmacion(request, id):
     return render(request, "confirmaciones/editar.html", {"form": form, "id": id})
 
 
+@permission_required("usuarios.write")
 def eliminar_confirmacion(request, id):
     confirmacion = get_object_or_404(Confirmacion, id=id)
     form = EliminarConfirmacionForm(instance=confirmacion)
