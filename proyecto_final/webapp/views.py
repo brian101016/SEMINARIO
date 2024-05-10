@@ -31,6 +31,5 @@ def index(request):
             "confirmaciones_total": f"\n({confirmaciones_total})",
             "matrimonios_total": f"\n({matrimonios_total})",
             "usuarios_total": f"\n({usuarios_total})",
-            "user": request.user,
         },
     )

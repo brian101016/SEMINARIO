@@ -9,9 +9,12 @@
   <a class="sacramento-btn" href="{% url 'matrimonios' %}">Matrimonios {{ matrimonios_total }}</a>
 </div>
 
+{% if perms.usuarios.admin %}
 <h2>Permisos de administrador</h2>
 
 <div class="sacramento-container">
   <a class="sacramento-btn" href="{% url 'usuarios' %}">Usuarios {{ usuarios_total }}</a>
 </div>
+{% endif %}
+
 {% endblock %}

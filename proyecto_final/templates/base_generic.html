@@ -15,7 +15,7 @@
     <div class="container-title">
       <h1 class="title">Sistema de Registro de Sacramentos</h1>
       {% if user.is_authenticated %}
-        <p>Bienvenido {{ user }}</p>
+        <p>Bienvenido <b>{{ user }}</b></p>
         <form method="POST" action="{% url 'logout' %}" style="margin-left: auto;">
           {% csrf_token %}
           <button class="login-link">Cerrar sesión</button>
@@ -30,21 +30,25 @@
         <li class="nav-item">
           <a href="{% url 'index' %}">Página principal</a>
         </li>
-        <li class="nav-item">
-          <a href="{% url 'bautizos' %}">Bautizos</a>
-        </li>
-        <li class="nav-item">
-          <a href="{% url 'comuniones' %}">Comuniones</a>
-        </li>
-        <li class="nav-item">
-          <a href="{% url 'confirmaciones' %}">Confirmaciones</a>
-        </li>
-        <li class="nav-item">
-          <a href="{% url 'matrimonios' %}">Matrimonios</a>
-        </li>
-        <li class="nav-item">
-          <a href="{% url 'usuarios' %}">Usuarios</a>
-        </li>
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a href="{% url 'bautizos' %}">Bautizos</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'comuniones' %}">Comuniones</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'confirmaciones' %}">Confirmaciones</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'matrimonios' %}">Matrimonios</a>
+          </li>
+        {% endif %}
+        {% if perms.usuarios.admin %}
+          <li class="nav-item">
+            <a href="{% url 'usuarios' %}">Usuarios</a>
+          </li>
+        {% endif %}
       </ul>
     </nav>
 

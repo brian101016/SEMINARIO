@@ -7,7 +7,9 @@
   <div class="container">
     <div class="flex-h2-btn">
       <h2>Comuniones</h2>
-      <button class="btn-create"><a href="{% url 'crear_comunion' %}">Crear nueva comunión</a></button>
+      {% if perms.usuarios.write %}
+        <button class="btn-create"><a href="{% url 'crear_comunion' %}">Crear nueva comunión</a></button>
+      {% endif %}
     </div>
     <div class="table-container">
       <form action="{% url 'comuniones' %}" method="POST">
@@ -104,12 +106,14 @@
                 <td>{{ item.pagina }}</td>
                 <td>{{ item.partida }}</td>
                 <td>{{ item.notas }}</td>
-                <td>
-                  <a class="btn-2" href="{% url 'editar_comunion' item.id %}">Editar</a>
-                </td>
-                <td>
-                  <a class="btn-3" href="{% url 'eliminar_comunion' item.id %}">Borrar</a>
-                </td>
+                {% if perms.usuarios.write %}
+                  <td>
+                    <a class="btn-2" href="{% url 'editar_comunion' item.id %}">Editar</a>
+                  </td>
+                  <td>
+                    <a class="btn-3" href="{% url 'eliminar_comunion' item.id %}">Borrar</a>
+                  </td>
+                {% endif %}
               </tr>
             {% endfor %}
           </tbody>
