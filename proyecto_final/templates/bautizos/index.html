@@ -40,7 +40,12 @@
             <tr>
               <td>{{ form.nombre }}</td>
               <td>{{ form.sexo }}</td>
-              <td>{{ form.fecha_nacimiento }}</td>
+              <td class="min-max-controls">
+                <label for="id_fecha_nacimiento_min">Min: </label>
+                {{ form.fecha_nacimiento_min }}
+                <label for="id_fecha_nacimiento_max">Max: </label>
+                {{ form.fecha_nacimiento_max }}
+              </td>
               <td>{{ form.ciudad_nacimiento }}</td>
               <td>{{ form.folio_acta_nacimiento }}</td>
               <td>{{ form.padre }}</td>

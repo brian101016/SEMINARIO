@@ -296,10 +296,38 @@ table th {
 }
 
 .min-max-controls {
-  display: flex;
-  border: none;
+  /* display: flex; */
+  display: table-cell;
+  /* border: none; */
   padding-top: 19px;
   gap: 12px;
+}
+
+.title-message {
+  font-weight: 700;
+  margin-top: 5rem;
+}
+
+.important-message {
+  margin: 3rem auto;
+  width: 50%;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.important-message > a {
+  color: #3f3ff8;
+  text-decoration: underline solid currentColor;
+}
+
+.login-error {
+  /* position: absolute; */
+  text-align: center;
+  /* width: 100%; */
+  margin-top: 2.5rem;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #d50606;
 }
 
 /* Estilos botones*/
@@ -360,7 +388,7 @@ table th {
 }
 
 .errorlist {
-  color: rgb(126, 23, 23);
+  color: #d50707;
 }
 
 .box-form {
