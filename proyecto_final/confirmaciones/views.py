@@ -153,7 +153,7 @@ def aplicar_filtros(filtros):
 
     libro_max = filtros["libro_max"]
     if libro_max is not None:
-        todos = todos.filter(libro__lte=libro_max)
+        todos = todos.filter(libro__gte=libro_max)
 
     pagina_min = filtros["pagina_min"]
     if pagina_min is not None:
@@ -161,7 +161,7 @@ def aplicar_filtros(filtros):
 
     pagina_max = filtros["pagina_max"]
     if pagina_max is not None:
-        todos = todos.filter(pagina__lte=pagina_max)
+        todos = todos.filter(pagina__gte=pagina_max)
 
     partida_min = filtros["partida_min"]
     if partida_min is not None:
@@ -169,7 +169,7 @@ def aplicar_filtros(filtros):
 
     partida_max = filtros["partida_max"]
     if partida_max is not None:
-        todos = todos.filter(partida__lte=partida_max)
+        todos = todos.filter(partida__gte=partida_max)
 
     notas = filtros["notas"]
     if notas is not None:
