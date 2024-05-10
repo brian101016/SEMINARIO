@@ -10,6 +10,16 @@ La aplicación se basa en administrar una base de datos mediante PostreSQL sobre
 
 # Instalar
 
+Revise requirements.txt
+
+- asgiref==3.8.1
+- Django==5.0.4
+- psycopg2==2.9.9
+- sqlparse==0.5.0
+- tzdata==2024.1
+
+## Pasos
+
 1. Una vez tengamos clonado el repositorio, entramos a la carpeta contenedora (SEMINARIO).
 
 2. Dentro de la carpeta, abrimos una consola (cmd o PowerShell).
