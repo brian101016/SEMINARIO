@@ -1,123 +1,126 @@
-{% extends "base_generic.html" %} {% block content %}
+{% extends 'base_generic.html' %} {% block content %}
+  {% block title %}
+    <title>Página de Bautizos</title>
+  {% endblock %}
 
-{% block title %}
-<title>Página de Bautizos</title>
-{% endblock %}
+  <div class="container">
+    <div class="flex-h2-btn">
+      <h2>Bautizos</h2>
+      <button class="btn-create"><a href="{% url 'crear_bautizo' %}">Crear nuevo bautizo</a></button>
+    </div>
+    <div class="table-container">
+      <form action="{% url 'bautizos' %}" method="POST">
+        {% csrf_token %}
 
-<h2>Bautizos -> Buscar</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Sexo</th>
+              <th>Fecha de nacimiento</th>
+              <th>Ciudad de nacimiento</th>
+              <th>Folio de acta</th>
+              <th>Padre</th>
+              <th>Madre</th>
+              <th>Abuelos paternos</th>
+              <th>Abuelos maternos</th>
+              <th>Padrino</th>
+              <th>Madrina</th>
+              <th>Notas marginales</th>
+              <th>Fecha de sacramento</th>
+              <th>Presbítero</th>
+              <th>Libro</th>
+              <th>Página</th>
+              <th>Partida</th>
+              <th>Notas adicionales</th>
+              <th colspan="2">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ form.nombre }}</td>
+              <td>{{ form.sexo }}</td>
+              <td>{{ form.fecha_nacimiento }}</td>
+              <td>{{ form.ciudad_nacimiento }}</td>
+              <td>{{ form.folio_acta_nacimiento }}</td>
+              <td>{{ form.padre }}</td>
+              <td>{{ form.madre }}</td>
+              <td>{{ form.abuelos_paternos }}</td>
+              <td>{{ form.abuelos_maternos }}</td>
+              <td>{{ form.padrino }}</td>
+              <td>{{ form.madrina }}</td>
+              <td>{{ form.notas_marginales }}</td>
+              <td class="min-max-controls">
+                <label for="id_fecha_sacramento_min">Min: </label>
+                {{ form.fecha_sacramento_min }}
+                <label for="id_fecha_sacramento_max">Max: </label>
+                {{ form.fecha_sacramento_max }}
+              </td>
+              <td>{{ form.presbitero }}</td>
+              <td class="min-max-controls">
+                <label for="id_libro_min">Min: </label>
+                {{ form.libro_max }}
+                <label for="id_libro_max">Max: </label>
+                {{ form.libro_min }}
+              </td>
+              <td class="min-max-controls">
+                <label for="id_pagina_min">Min: </label>
+                {{ form.pagina_max }}
+                <label for="id_pagina_max">Max: </label>
+                {{ form.pagina_min }}
+              </td>
+              <td class="min-max-controls">
+                <label for="id_partida_min">Min: </label>
+                {{ form.partida_max }}
+                <label for="id_partida_max">Max: </label>
+                {{ form.partida_min }}
+              </td>
+              <td>{{ form.notas }}</td>
+              <td>
+                <button class="btn-1">Filtrar campos</button>
+              </td>
+              <td>
+                <a class="btn-1" href="{% url 'bautizos' %}">Limpiar campos</a>
+              </td>
+            </tr>
 
-<a href="{% url 'crear_bautizo' %}">Crear nuevo bautizo</a>
-
-<form action="{% url 'bautizos' %}" method="POST">
-  {% csrf_token %}
-
-  <table>
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Sexo</th>
-        <th>Fecha de nacimiento</th>
-        <th>Ciudad de nacimiento</th>
-        <th>Folio de acta</th>
-        <th>Padre</th>
-        <th>Madre</th>
-        <th>Abuelos paternos</th>
-        <th>Abuelos maternos</th>
-        <th>Padrino</th>
-        <th>Madrina</th>
-        <th>Notas marginales</th>
-        <th>Fecha de sacramento</th>
-        <th>Presbítero</th>
-        <th>Libro</th>
-        <th>Página</th>
-        <th>Partida</th>
-        <th>Notas adicionales</th>
-        <th colspan="2">Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>{{ form.nombre }}</td>
-        <td>{{ form.sexo }}</td>
-        <td class="min-max-controls">
-          <label for="id_fecha_nacimiento_min">Min: </label>
-          {{ form.fecha_nacimiento_min }}
-          <label for="id_fecha_nacimiento_max">Max: </label>
-          {{ form.fecha_nacimiento_max }}
-        </td>
-        <td>{{ form.ciudad_nacimiento }}</td>
-        <td>{{ form.folio_acta_nacimiento }}</td>
-        <td>{{ form.padre }}</td>
-        <td>{{ form.madre }}</td>
-        <td>{{ form.abuelos_paternos }}</td>
-        <td>{{ form.abuelos_maternos }}</td>
-        <td>{{ form.padrino }}</td>
-        <td>{{ form.madrina }}</td>
-        <td>{{ form.notas_marginales }}</td>
-        <td class="min-max-controls">
-          <label for="id_fecha_sacramento_min">Min: </label>
-          {{ form.fecha_sacramento_min }}
-          <label for="id_fecha_sacramento_max">Max: </label>
-          {{ form.fecha_sacramento_max }}
-        </td>
-        <td>{{ form.presbitero }}</td>
-        <td class="min-max-controls">
-          <label for="id_libro_min">Min: </label>
-          {{ form.libro_max }}
-          <label for="id_libro_max">Max: </label>
-          {{ form.libro_min }}
-        </td>
-        <td class="min-max-controls">
-          <label for="id_pagina_min">Min: </label>
-          {{ form.pagina_max }}
-          <label for="id_pagina_max">Max: </label>
-          {{ form.pagina_min }}
-        </td>
-        <td class="min-max-controls">
-          <label for="id_partida_min">Min: </label>
-          {{ form.partida_max }}
-          <label for="id_partida_max">Max: </label>
-          {{ form.partida_min }}
-        </td>
-        <td>{{ form.notas }}</td>
-        <td>
-          <button>Filtrar campos</button>
-        </td>
-        <td>
-          <a class="btn-1" href="{% url 'bautizos' %}">Limpiar campos</a>
-        </td>
-      </tr>
-
-      {% for item in bautizos %}
-      <tr>
-        <td>{{ item.nombre }}</td>
-        <td>{% if item.sexo %} Mujer {% else %} Hombre {% endif %}</td>
-        <td>{{ item.fecha_nacimiento }}</td>
-        <td>{{ item.ciudad_nacimiento }}</td>
-        <td>{{ item.folio_acta_nacimiento }}</td>
-        <td>{{ item.padre }}</td>
-        <td>{{ item.madre }}</td>
-        <td>{{ item.abuelos_paternos }}</td>
-        <td>{{ item.abuelos_maternos }}</td>
-        <td>{{ item.padrino }}</td>
-        <td>{{ item.madrina }}</td>
-        <td>{{ item.notas_marginales }}</td>
-        <td>{{ item.fecha_sacramento }}</td>
-        <td>{{ item.presbitero }}</td>
-        <td>{{ item.libro }}</td>
-        <td>{{ item.pagina }}</td>
-        <td>{{ item.partida }}</td>
-        <td>{{ item.notas }}</td>
-        <td>
-          <a class="btn-2" href="{% url 'editar_bautizo' item.id %}">Editar</a>
-        </td>
-        <td>
-          <a class="btn-3" href="{% url 'eliminar_bautizo' item.id %}">Borrar</a>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</form>
-
+            {% for item in bautizos %}
+              <tr>
+                <td>{{ item.nombre }}</td>
+                <td>
+                  {% if item.sexo %}
+                    Mujer
+                  {% else %}
+                    Hombre
+                  {% endif %}
+                </td>
+                <td>{{ item.fecha_nacimiento }}</td>
+                <td>{{ item.ciudad_nacimiento }}</td>
+                <td>{{ item.folio_acta_nacimiento }}</td>
+                <td>{{ item.padre }}</td>
+                <td>{{ item.madre }}</td>
+                <td>{{ item.abuelos_paternos }}</td>
+                <td>{{ item.abuelos_maternos }}</td>
+                <td>{{ item.padrino }}</td>
+                <td>{{ item.madrina }}</td>
+                <td>{{ item.notas_marginales }}</td>
+                <td>{{ item.fecha_sacramento }}</td>
+                <td>{{ item.presbitero }}</td>
+                <td>{{ item.libro }}</td>
+                <td>{{ item.pagina }}</td>
+                <td>{{ item.partida }}</td>
+                <td>{{ item.notas }}</td>
+                <td>
+                  <a class="btn-2" href="{% url 'editar_bautizo' item.id %}">Editar</a>
+                </td>
+                <td>
+                  <a class="btn-3" href="{% url 'eliminar_bautizo' item.id %}">Borrar</a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </form>
+    </div>
+  </div>
 {% endblock %}

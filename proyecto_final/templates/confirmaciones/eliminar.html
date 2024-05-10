@@ -1,15 +1,18 @@
-{% extends "base_generic.html" %} {% block content %}
+{% extends 'base_generic.html' %} {% block content %}
+  {% block title %}
+    <title>Página de confirmaciones</title>
+  {% endblock %}
 
-<h1>Página de Confirmaciones</h1>
+  <h2 class="title-crud">Eliminar confirmación</h2>
 
-<h2>Eliminar confirmación</h2>
+  <div class="box-form">
+    <form action="{% url 'eliminar_confirmacion' id %}" method="POST" novalidate>
+      {% csrf_token %} {{ form }}
 
-<a href="{% url 'confirmaciones' %}">Regresar</a>
-
-<form action="{% url 'eliminar_confirmacion' id %}" method="POST" novalidate>
-  {% csrf_token %} {{ form }}
-
-  <button>Confirmar eliminación</button>
-</form>
-
+      <div class="two-btn">
+        <a class="btn-4" href="{% url 'confirmaciones' %}">Regresar</a>
+        <button class="btn-1">Confirmar eliminación</button>
+      </div>
+    </form>
+  </div>
 {% endblock %}

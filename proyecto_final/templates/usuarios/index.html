@@ -1,51 +1,55 @@
-{% extends "base_generic.html" %} {% block content %}
+{% extends 'base_generic.html' %} {% block content %}
+  {% block title %}
+    <title>Página de mostrar usuario</title>
+  {% endblock %}
 
-<h1>Página de Usuarios</h1>
+  <div class="container">
+    <div class="flex-h2-btn">
+      <h2>Mostrar usuarios</h2>
+      <button class="btn-create"><a href="{% url 'crear_usuario' %}">Crear nuevo usuario</a></button>
+    </div>
+    <div class="table-container">
+      <form action="{% url 'usuarios' %}" method="POST">
+        {% csrf_token %}
 
-<h2>Mostrar usuarios</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Permisos</th>
+              <th colspan="2">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ form.username }}</td>
+              <td>{{ form.email }}</td>
+              <td>{{ form.permisos }}</td>
+              <td>
+                <button class="btn-1">Filtrar campos</button>
+              </td>
+              <td>
+                <a class="btn-1" href="{% url 'usuarios' %}">Limpiar campos</a>
+              </td>
+            </tr>
 
-<a href="{% url 'crear_usuario' %}">Crear nuevo usuario</a>
-
-<form action="{% url 'usuarios' %}" method="POST">
-  {% csrf_token %}
-
-  <table>
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Email</th>
-        <th>Permisos</th>
-        <th colspan="2">Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>{{ form.username }}</td>
-        <td>{{ form.email }}</td>
-        <td>{{ form.permisos }}</td>
-        <td>
-          <button>Filtrar campos</button>
-        </td>
-        <td>
-          <a class="btn-1" href="{% url 'usuarios' %}">Limpiar campos</a>
-        </td>
-      </tr>
-
-      {% for item in usuarios %}
-      <tr>
-        <td>{{ item.username }}</td>
-        <td>{{ item.email }}</td>
-        <td>{{ item.permisos_name }}</td>
-        <td>
-          <a class="btn-2" href="{% url 'editar_usuario' item.id %}">Editar</a>
-        </td>
-        <td>
-          <a class="btn-3" href="{% url 'eliminar_usuario' item.id %}">Eliminar</a>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</form>
-
+            {% for item in usuarios %}
+              <tr>
+                <td>{{ item.username }}</td>
+                <td>{{ item.email }}</td>
+                <td>{{ item.permisos_name }}</td>
+                <td>
+                  <a class="btn-2" href="{% url 'editar_usuario' item.id %}">Editar</a>
+                </td>
+                <td>
+                  <a class="btn-3" href="{% url 'eliminar_usuario' item.id %}">Eliminar</a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </form>
+    </div>
+  </div>
 {% endblock %}

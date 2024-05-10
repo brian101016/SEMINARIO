@@ -1,15 +1,19 @@
-{% extends "base_generic.html" %} {% block content %}
+{% extends 'base_generic.html' %} {% block content %}
+  {% block title %}
+    <title>Página de Comuniones</title>
+  {% endblock %}
 
-<h1>Página de Confirmaciones</h1>
+  <h2 class="title-crud">Crear confirmación</h2>
 
-<h2>Crear confirmación</h2>
-
-<a href="{% url 'confirmaciones' %}">Regresar</a>
-
-<form action="{% url 'crear_confirmacion' %}" method="POST">
-  {% csrf_token %} {{ form }}
-
-  <button>Crear nuevo registro</button>
-</form>
-
+  
+  <div class="box-form">
+    <form action="{% url 'crear_confirmacion' %}" method="POST">
+      {% csrf_token %} {{ form }}
+      
+      <div class="two-btn">
+        <a class="btn-4" href="{% url 'confirmaciones' %}">Regresar</a>
+        <button class="btn-1">Crear nuevo registro</button>
+      </div>
+    </form>
+  </div>
 {% endblock %}

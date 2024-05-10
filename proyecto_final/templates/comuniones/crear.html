@@ -1,15 +1,18 @@
-{% extends "base_generic.html" %} {% block content %}
+{% extends 'base_generic.html' %} {% block content %}
+  {% block title %}
+    <title>Página de Comuniones</title>
+  {% endblock %}
 
-<h1>Página de Comuniones</h1>
+  <h2 class="title-crud">Crear comunión</h2>
 
-<h2>Crear comunión</h2>
+  <div class="box-form">
+    <form action="{% url 'crear_comunion' %}" method="POST">
+      {% csrf_token %} {{ form }}
 
-<a href="{% url 'comuniones' %}">Regresar</a>
-
-<form action="{% url 'crear_comunion' %}" method="POST">
-  {% csrf_token %} {{ form }}
-
-  <button>Crear nuevo registro</button>
-</form>
-
+      <div class="two-btn">
+        <a class="btn-4" href="{% url 'comuniones' %}">Regresar</a>
+        <button class="btn-1">Crear nuevo registro</button>
+      </div>
+    </form>
+  </div>
 {% endblock %}
