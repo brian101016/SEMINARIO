@@ -13,6 +13,8 @@ from webapp.utils import (
 
 
 class BuscarConfirmacionForm(BuscarSacramentoForm):
+    """Campos específicos para buscar 'Confirmaciones'."""
+
     nombre = forms.CharField(required=False)
     sexo = SexoBuscarField()
     padre = forms.CharField(required=False)
@@ -25,12 +27,23 @@ class BuscarConfirmacionForm(BuscarSacramentoForm):
 
 
 class ConfirmacionForm(SacramentoForm):
+    """Contiene campos y validaciones para crear y modificar 'Confirmaciones'."""
+
+    # Sobreescribimos los campos autogenerados para considerar otras validaciones.
     sexo = SexoField()
     fecha_bautizo = FechaAnteriorField(
         label="Fecha de bautizo", help_text="Fecha de cuando se recibió el bautismo."
     )
 
     class Meta(SacramentoForm.Meta):
+        """Metadatos del formulario, hacemos lo siguiente:
+
+        1. Heredamos todos los metadatos anteriores (de SacramentoForm.Meta).
+        2. Establecemos el modelo para guardar en la BD (Confirmacion).
+        3. Ordenamos los campos según su importancia.
+        4. Finalmente, colocamos los 'labels' que hagan falta.
+        """
+
         model = Confirmacion
         fields = [
             "nombre",
@@ -58,16 +71,20 @@ class ConfirmacionForm(SacramentoForm):
         }
 
     def clean(self):
-        data = super().clean()
+        """Validación final entre 'fecha_bautizo' >= 'fecha_sacramento'."""
+
+        data = super().clean()  # Datos validados normalmente
 
         fecha_bau = data["fecha_bautizo"]
         fecha_sac = data["fecha_sacramento"]
 
+        # Si por alguna razón no existen, marcamos error antes de evaluar.
         if fecha_bau == None or fecha_sac == None:
             raise forms.ValidationError(
                 "Por favor ingresa una fecha válida", "invalid_date"
             )
 
+        # Revisamos si los datos son coherentes.
         if fecha_bau >= fecha_sac:
             self.add_error(
                 "fecha_sacramento",
@@ -81,4 +98,6 @@ class ConfirmacionForm(SacramentoForm):
 
 
 class EliminarConfirmacionForm(ReadOnlyFormMixin, ConfirmacionForm):
+    """Posee todos los campos desactivados para confirmar los datos."""
+
     pass

@@ -5,6 +5,7 @@ from django.urls import path, include
 from . import views
 
 
+# Se generan las URLs según la acción que estemos realizando.
 urlpatterns = [
     path("", include("django.contrib.auth.urls")),
     path("", views.index, name="usuarios"),

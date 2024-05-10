@@ -5,6 +5,7 @@ from webapp.models import Sacramento
 
 
 class Bautizo(Sacramento):
+    """Información específica que contiene un bautizo."""
 
     class Meta:
         ordering = ["-fecha_sacramento", "nombre"]
@@ -60,5 +61,7 @@ class Bautizo(Sacramento):
     )
 
     def __str__(self):
+        """Representación como cadena del bautizo."""
+
         text = self.sacramento_str()
         return f"Bautizo de {self.nombre}. " + text

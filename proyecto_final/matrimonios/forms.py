@@ -13,6 +13,8 @@ from webapp.utils import (
 
 
 class BuscarMatrimonioForm(BuscarSacramentoForm):
+    """Campos específicos para buscar 'Matrimonios'."""
+
     novio = forms.CharField(required=False)
     novia = forms.CharField(required=False)
     domicilio = forms.CharField(required=False)
@@ -24,7 +26,17 @@ class BuscarMatrimonioForm(BuscarSacramentoForm):
 
 
 class MatrimonioForm(SacramentoForm):
+    """Contiene campos y validaciones para crear y modificar 'Matrimonios'."""
+
     class Meta(SacramentoForm.Meta):
+        """Metadatos del formulario, hacemos lo siguiente:
+
+        1. Heredamos todos los metadatos anteriores (de SacramentoForm.Meta).
+        2. Establecemos el modelo para guardar en la BD (Matrimonio).
+        3. Ordenamos los campos según su importancia.
+        4. Finalmente, colocamos los 'labels' que hagan falta.
+        """
+
         model = Matrimonio
         fields = [
             "novio",
@@ -55,4 +67,6 @@ class MatrimonioForm(SacramentoForm):
 
 
 class EliminarMatrimonioForm(ReadOnlyFormMixin, MatrimonioForm):
+    """Posee todos los campos desactivados para confirmar los datos."""
+
     pass

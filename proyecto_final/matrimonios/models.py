@@ -5,6 +5,7 @@ from webapp.models import Sacramento
 
 
 class Matrimonio(Sacramento):
+    """Información específica que contiene un matrimonio."""
 
     class Meta:
         ordering = ["-fecha_sacramento", "novio", "novia"]
@@ -44,5 +45,7 @@ class Matrimonio(Sacramento):
     )
 
     def __str__(self):
+        """Representación como cadena del matrimonio."""
+
         text = self.sacramento_str()
         return f"Matrimonio de {self.novio} y {self.novia}. " + text

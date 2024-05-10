@@ -4,6 +4,7 @@ from django.urls import path
 from . import views
 
 
+# Se generan las URLs según la acción que estemos realizando.
 urlpatterns = [
     path("", views.index, name="comuniones"),
     path("crear/", views.crear_comunion, name="crear_comunion"),

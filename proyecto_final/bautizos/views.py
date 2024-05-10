@@ -13,23 +13,29 @@ from .forms import (
 
 @login_required
 def index(request):
+    """Vista principal de 'Bautizos' con tabla de búsqueda."""
+
+    # Creamos las variables con sus valores default.
     form = BuscarBautizoForm()
     bautizos = Bautizo.objects.all()
 
     if request.method == "POST":
         form = BuscarBautizoForm(request.POST)
         if form.is_valid():
-            bautizos = aplicar_filtros(form.cleaned_data)
+            bautizos = aplicar_filtros(form.cleaned_data)  # Actualizamos la lista.
 
     return render(request, "bautizos/index.html", {"bautizos": bautizos, "form": form})
 
 
 @permission_required("usuarios.write")
 def crear_bautizo(request):
+    """Vista para crear y guardar un bautizo usando su 'ModelForm'."""
+
     form = BautizoForm()
 
     if request.method == "POST":
-        form = BautizoForm(request.POST)
+        form = BautizoForm(request.POST)  # Regeneramos el formulario.
+
         if form.is_valid():
             form.save()
             return redirect("bautizos")
@@ -39,6 +45,8 @@ def crear_bautizo(request):
 
 @permission_required("usuarios.write")
 def editar_bautizo(request, id):
+    """Vista para editar un registro (si existe su 'id')."""
+
     bautizo = get_object_or_404(Bautizo, pk=id)
     form = BautizoForm(instance=bautizo)
 
@@ -54,9 +62,12 @@ def editar_bautizo(request, id):
 
 @permission_required("usuarios.write")
 def eliminar_bautizo(request, id):
+    """Vista de confirmación para eliminar un registro (si existe)."""
+
     bautizo = get_object_or_404(Bautizo, id=id)
     form = EliminarBautizoForm(instance=bautizo)
 
+    # El método POST funciona como doble confirmación para eliminar
     if request.method == "POST":
         bautizo.delete()
         return redirect("bautizos")
@@ -65,6 +76,21 @@ def eliminar_bautizo(request, id):
 
 
 def aplicar_filtros(filtros):
+    """Extraemos y aplicamos todos los filtros al modelo.
+
+    El parámetro 'filtros' está pensado para extraerse desde 'form.cleaned_data'
+    del formulario de búsqueda de un modelo específico (Bautizos).
+
+    Se verifica por cualquier valor existente (not None) para aplicar una query
+    de búsqueda utilizando '.filter()'.
+
+    Los filtros que sean cadena se aplican según 'llave__icontains=valor'.
+    Los filtros que sean fechas o números se filtran dentro de un rango definido
+    según 'campo_min' y 'campo_max'.
+    Los filtros que sean booleanos se aplican directamente como 'llave=valor'.
+    """
+
+    # Lista con todos los registros para irle agregando los filtros.
     todos = Bautizo.objects.all()
 
     nombre = filtros["nombre"]
@@ -159,4 +185,4 @@ def aplicar_filtros(filtros):
     if notas is not None:
         todos = todos.filter(notas__icontains=notas)
 
-    return todos
+    return todos  # Ahora 'todos' es un query con la suma de filtros

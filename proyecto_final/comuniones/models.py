@@ -5,6 +5,7 @@ from webapp.models import Sacramento
 
 
 class Comunion(Sacramento):
+    """Información específica que contiene una comunión."""
 
     class Meta:
         ordering = ["-fecha_sacramento", "nombre"]
@@ -42,5 +43,7 @@ class Comunion(Sacramento):
     )
 
     def __str__(self):
+        """Representación como cadena de la comunión."""
+
         text = self.sacramento_str()
         return f"Comunión de {self.nombre}. " + text

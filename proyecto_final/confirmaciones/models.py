@@ -5,6 +5,7 @@ from webapp.models import Sacramento
 
 
 class Confirmacion(Sacramento):
+    """Información específica que contiene una confirmación."""
 
     class Meta:
         ordering = ["-fecha_sacramento", "nombre"]
@@ -42,5 +43,7 @@ class Confirmacion(Sacramento):
     )
 
     def __str__(self):
+        """Representación como cadena de la confimación."""
+
         text = self.sacramento_str()
         return f"Confirmación de {self.nombre}. " + text

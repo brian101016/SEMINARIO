@@ -12,8 +12,8 @@ class BuscarUsuarioForm(forms.Form):
 
     PERMISSIONS_CHOICES = ((None, "Cualquiera"),) + GlobalPermissions._meta.permissions
 
-    username = forms.CharField(max_length=255, required=False, empty_value=None)
-    email = forms.CharField(max_length=255, required=False, empty_value=None)
+    username = forms.CharField(required=False)
+    email = forms.CharField(required=False)
     permisos = forms.ChoiceField(choices=PERMISSIONS_CHOICES, required=False)
 
 

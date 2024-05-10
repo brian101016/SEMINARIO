@@ -18,14 +18,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+
 from webapp import views
 
+
+# Se generan las URLs según los módulos que estemos realizando.
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.index, name="index"),
-    path("bautizos/", include("bautizos.urls"), name="bautizos"),
+    path("bautizos/", include("bautizos.urls")),
     path("comuniones/", include("comuniones.urls")),
-    path("confirmaciones/", include("confirmaciones.urls"), name="confirmaciones"),
-    path("matrimonios/", include("matrimonios.urls"), name="matrimonios"),
+    path("confirmaciones/", include("confirmaciones.urls")),
+    path("matrimonios/", include("matrimonios.urls")),
     path("usuarios/", include("usuarios.urls")),
 ]
