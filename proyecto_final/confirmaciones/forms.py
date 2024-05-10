@@ -41,7 +41,8 @@ class ConfirmacionForm(SacramentoForm):
         1. Heredamos todos los metadatos anteriores (de SacramentoForm.Meta).
         2. Establecemos el modelo para guardar en la BD (Confirmacion).
         3. Ordenamos los campos según su importancia.
-        4. Finalmente, colocamos los 'labels' que hagan falta.
+        4. Colocamos los 'labels' que hagan falta.
+        5. Agregamos los campos y labels desde 'SacramentoForm.Meta'.
         """
 
         model = Confirmacion
@@ -54,13 +55,7 @@ class ConfirmacionForm(SacramentoForm):
             "ciudad_bautizo",
             "parroquia_bautizo",
             "fecha_bautizo",
-            "fecha_sacramento",
-            "presbitero",
-            "libro",
-            "pagina",
-            "partida",
-            "notas",
-        ]
+        ] + SacramentoForm.Meta.fields
         labels = {
             "nombre": "Nombre completo",
             "padre": "Nombre completo del padre",
@@ -68,7 +63,7 @@ class ConfirmacionForm(SacramentoForm):
             "padrino_madrina": "Nombre completo del padrino o madrina",
             "ciudad_bautizo": "Ciudad y lugar de bautizo",
             "parroquia_bautizo": "Parroquia de bautizo",
-        }
+        } | SacramentoForm.Meta.labels
 
     def clean(self):
         """Validación final entre 'fecha_bautizo' >= 'fecha_sacramento'."""

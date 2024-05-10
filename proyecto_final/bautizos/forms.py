@@ -45,7 +45,8 @@ class BautizoForm(SacramentoForm):
         1. Heredamos todos los metadatos anteriores (de SacramentoForm.Meta).
         2. Establecemos el modelo para guardar en la BD (Bautizo).
         3. Ordenamos los campos según su importancia.
-        4. Finalmente, colocamos los 'labels' que hagan falta.
+        4. Colocamos los 'labels' que hagan falta.
+        5. Agregamos los campos y labels desde 'SacramentoForm.Meta'.
         """
 
         model = Bautizo
@@ -62,13 +63,7 @@ class BautizoForm(SacramentoForm):
             "padrino",
             "madrina",
             "notas_marginales",
-            "fecha_sacramento",
-            "presbitero",
-            "libro",
-            "pagina",
-            "partida",
-            "notas",
-        ]
+        ] + SacramentoForm.Meta.fields
         labels = {
             "nombre": "Nombre completo del bebé",
             "ciudad_nacimiento": "Ciudad y lugar de nacimiento",
@@ -80,7 +75,7 @@ class BautizoForm(SacramentoForm):
             "padrino": "Nombre completo del padrino",
             "madrina": "Nombre completo de la madrina",
             "notas_marginales": "Notas marginales aplicables",
-        }
+        } | SacramentoForm.Meta.labels
 
     def clean(self):
         """Validación final entre 'fecha_nacimiento' >= 'fecha_sacramento'."""

@@ -34,7 +34,8 @@ class MatrimonioForm(SacramentoForm):
         1. Heredamos todos los metadatos anteriores (de SacramentoForm.Meta).
         2. Establecemos el modelo para guardar en la BD (Matrimonio).
         3. Ordenamos los campos según su importancia.
-        4. Finalmente, colocamos los 'labels' que hagan falta.
+        4. Colocamos los 'labels' que hagan falta.
+        5. Agregamos los campos y labels desde 'SacramentoForm.Meta'.
         """
 
         model = Matrimonio
@@ -47,13 +48,7 @@ class MatrimonioForm(SacramentoForm):
             "padres_novia",
             "testigos",
             "presentacion",
-            "fecha_sacramento",
-            "presbitero",
-            "libro",
-            "pagina",
-            "partida",
-            "notas",
-        ]
+        ] + SacramentoForm.Meta.fields
         labels = {
             "novio": "Novio",
             "novia": "Novia",
@@ -63,7 +58,7 @@ class MatrimonioForm(SacramentoForm):
             "padres_novia": "Padres de la novia",
             "testigos": "Testigos (separados por comas)",
             "presentacion": "Presentación matrimonial",
-        }
+        } | SacramentoForm.Meta.labels
 
 
 class EliminarMatrimonioForm(ReadOnlyFormMixin, MatrimonioForm):

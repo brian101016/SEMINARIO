@@ -10,6 +10,12 @@ from matrimonios.models import Matrimonio
 
 
 def index(request):
+    """Página principal del sistema.
+
+    Muestra la cantidad de registros existentes de cada modelo y permite
+    acceder rápidamente al resto de módulos y funcionalidades.
+    """
+
     bautizos_total = Bautizo.objects.count()
     comuniones_total = Comunion.objects.count()
     confirmaciones_total = Confirmacion.objects.count()

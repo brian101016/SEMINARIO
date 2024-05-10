@@ -13,25 +13,34 @@ from .forms import (
 
 @login_required
 def index(request):
+    """Vista principal de 'Comuniones' con tabla de búsqueda."""
+
+    # Creamos las variables con sus valores default.
     form = BuscarComunionForm()
     comuniones = Comunion.objects.all()
 
     if request.method == "POST":
         form = BuscarComunionForm(request.POST)
+
         if form.is_valid():
-            comuniones = aplicar_filtros(form.cleaned_data)
+            comuniones = aplicar_filtros(form.cleaned_data)  # Actualizamos la lista.
 
     return render(
-        request, "comuniones/index.html", {"comuniones": comuniones, "form": form}
+        request,
+        "comuniones/index.html",
+        {"comuniones": comuniones, "form": form},
     )
 
 
 @permission_required("usuarios.write")
 def crear_comunion(request):
+    """Vista para crear y guardar una comunión usando su 'ModelForm'."""
+
     form = ComunionForm()
 
     if request.method == "POST":
-        form = ComunionForm(request.POST)
+        form = ComunionForm(request.POST)  # Regeneramos el formulario.
+
         if form.is_valid():
             form.save()
             return redirect("comuniones")
@@ -41,6 +50,8 @@ def crear_comunion(request):
 
 @permission_required("usuarios.write")
 def editar_comunion(request, id):
+    """Vista para editar un registro (si existe su 'id')."""
+
     comunion = get_object_or_404(Comunion, pk=id)
     form = ComunionForm(instance=comunion)
 
@@ -56,9 +67,12 @@ def editar_comunion(request, id):
 
 @permission_required("usuarios.write")
 def eliminar_comunion(request, id):
+    """Vista de confirmación para eliminar un registro (si existe)."""
+
     comunion = get_object_or_404(Comunion, id=id)
     form = EliminarComunionForm(instance=comunion)
 
+    # El método POST funciona como doble confirmación para eliminar.
     if request.method == "POST":
         comunion.delete()
         return redirect("comuniones")
@@ -67,6 +81,21 @@ def eliminar_comunion(request, id):
 
 
 def aplicar_filtros(filtros):
+    """Extraemos y aplicamos todos los filtros al modelo.
+
+    El parámetro 'filtros' está pensado para extraerse desde 'form.cleaned_data'
+    del formulario de búsqueda de un modelo específico (Comunion).
+
+    Se verifica por cualquier valor existente (not None) para aplicar una query
+    de búsqueda utilizando '.filter()'.
+
+    Los filtros que sean cadena se aplican según 'llave__icontains=valor'.
+    Los filtros que sean fechas o números se filtran dentro de un rango definido
+    según 'campo_min' y 'campo_max'.
+    Los filtros que sean booleanos se aplican directamente como 'llave=valor'.
+    """
+
+    # Lista con todos los registros para irle agregando los filtros.
     todos = Comunion.objects.all()
 
     nombre = filtros["nombre"]
@@ -145,4 +174,4 @@ def aplicar_filtros(filtros):
     if notas is not None:
         todos = todos.filter(notas__icontains=notas)
 
-    return todos
+    return todos  # Ahora 'todos' es un query con la suma de filtros.

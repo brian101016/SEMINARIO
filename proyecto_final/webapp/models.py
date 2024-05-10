@@ -3,10 +3,10 @@ from django.utils.timezone import now
 
 
 class Sacramento(models.Model):
+    """Información genérica de todos los sacramentos y sus registros."""
 
     class Meta:
-        # No database table creation or deletion operations will be performed for this model.
-        abstract = True
+        abstract = True  # Marcamos como plantilla sin tablas en BD.
         ordering = ["-fecha_sacramento"]
 
     fecha_sacramento = models.DateField(
@@ -34,7 +34,11 @@ class Sacramento(models.Model):
     )
 
     def sacramento_str(self):
+        """Muestra los datos del sacramento general."""
+
         return f"Oficiado el {self.fecha_sacramento} por PBRO. {self.presbitero} ({self.libro}-{self.pagina}/{self.partida})"
 
     def __str__(self):
+        """Representación como cadena en general."""
+
         return self.sacramento_str()

@@ -21,6 +21,7 @@ def index(request):
 
     if request.method == "POST":
         form = BuscarBautizoForm(request.POST)
+
         if form.is_valid():
             bautizos = aplicar_filtros(form.cleaned_data)  # Actualizamos la lista.
 
@@ -67,7 +68,7 @@ def eliminar_bautizo(request, id):
     bautizo = get_object_or_404(Bautizo, id=id)
     form = EliminarBautizoForm(instance=bautizo)
 
-    # El método POST funciona como doble confirmación para eliminar
+    # El método POST funciona como doble confirmación para eliminar.
     if request.method == "POST":
         bautizo.delete()
         return redirect("bautizos")
@@ -185,4 +186,4 @@ def aplicar_filtros(filtros):
     if notas is not None:
         todos = todos.filter(notas__icontains=notas)
 
-    return todos  # Ahora 'todos' es un query con la suma de filtros
+    return todos  # Ahora 'todos' es un query con la suma de filtros.
