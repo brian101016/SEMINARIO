@@ -7,10 +7,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'styles.css' %}" />
     {% block title %}
-    <title>Página principal | SRS</title>
+      <title>Página principal | SRS</title>
     {% endblock %}
   </head>
   <body>
+    
+    <div class="container-title">
+      <h1 class="title">Sistema de Registro de Sacramentos</h1>
+      {% if user.is_authenticated %}
+        <p>Bienvenido {{ user }}</p>
+        <form method="POST" action="{% url 'logout' %}" style="margin-left: auto;">
+          {% csrf_token %}
+          <button class="login-link">Cerrar sesión</button>
+        </form>
+      {% else %}
+        <button class="login-link"><a href="{% url 'login' %}">Login</a></button>
+      {% endif %}
+    </div>
+
     <nav>
       <ul>
         <li class="nav-item">
@@ -32,22 +46,10 @@
           <a href="{% url 'usuarios' %}">Usuarios</a>
         </li>
       </ul>
-
-      {% if user.is_authenticated %}
-      <p>Bienvenido {{ user }}</p>
-      <form method="POST" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button>Cerrar sesión</button>
-      </form>
-
-      {% else %}
-      <a href="{% url 'login' %}">Login</a>
-
-      {% endif %}
     </nav>
 
-    <h1 class="title">Sistema de Registro de Sacramentos</h1>
+    {% block content %}
 
-    {% block content %} {% endblock %}
+    {% endblock %}
   </body>
 </html>

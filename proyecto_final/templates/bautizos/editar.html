@@ -1,15 +1,18 @@
-{% extends "base_generic.html" %} {% block content %}
+{% extends 'base_generic.html' %} {% block content %}
+  {% block title %}
+    <title>Página de Bautizo</title>
+  {% endblock %}
+  
+  <h2 class="title-crud">Editar bautizo</h2>
 
-<h1>Página de Bautizos</h1>
+  <div class="box-form">
+    <form action="{% url 'editar_bautizo' id %}" method="POST">
+      {% csrf_token %} {{ form }}
 
-<h2>Editar bautizo</h2>
-
-<a href="{% url 'bautizos' %}">Regresar</a>
-
-<form action="{% url 'editar_bautizo' id %}" method="POST">
-  {% csrf_token %} {{ form }}
-
-  <button>Guardar cambios</button>
-</form>
-
+      <div class="two-btn">
+        <a class="btn-4" href="{% url 'bautizos' %}">Regresar</a>
+        <button class="btn-1">Guardar cambios</button>
+      </div>
+    </form>
+  </div>
 {% endblock %}

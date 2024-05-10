@@ -1,15 +1,18 @@
-{% extends "base_generic.html" %} {% block content %}
+{% extends 'base_generic.html' %} {% block content %}
+  {% block title %}
+    <title>Página de Matrimonio</title>
+  {% endblock %}
 
-<h1>Página de Matrimonios</h1>
+  <h2 class="title-crud">Eliminar matrimonio</h2>
 
-<h2>Eliminar matrimonio</h2>
+  <div class="box-form">
+    <form action="{% url 'eliminar_matrimonio' id %}" method="POST" novalidate>
+      {% csrf_token %} {{ form }}
 
-<a href="{% url 'matrimonios' %}">Regresar</a>
-
-<form action="{% url 'eliminar_matrimonio' id %}" method="POST" novalidate>
-  {% csrf_token %} {{ form }}
-
-  <button>Confirmar eliminación</button>
-</form>
-
+      <div class="two-btn">
+        <a class="btn-4" href="{% url 'matrimonios' %}">Regresar</a>
+        <button class="btn-1">Confirmar eliminación</button>
+      </div>
+    </form>
+  </div>
 {% endblock %}

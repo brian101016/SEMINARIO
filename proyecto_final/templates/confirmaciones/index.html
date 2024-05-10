@@ -1,84 +1,94 @@
-{% extends "base_generic.html" %} {% block content %}
+{% extends 'base_generic.html' %} {% block content %}
+  {% block title %}
+    <title>Página de Confirmaciones</title>
+  {% endblock %}
 
-<h1>Página de Confirmaciones</h1>
+  <div class="container">
+    <div class="flex-h2-btn">
+      <h2>Confirmaciones</h2>
+      <button class="btn-create"><a href="{% url 'crear_confirmacion' %}">Crear nueva confirmación</a></button>
+    </div>
+    <div class="table-container">
+      <form action="{% url 'confirmaciones' %}" method="POST">
+        {% csrf_token %}
 
-<h2>Tabla de confirmaciones</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Sexo</th>
+              <th>Padre</th>
+              <th>Madre</th>
+              <th>Padrino/Madrina</th>
+              <th>Ciudad de Bautizo</th>
+              <th>Parroquia de Bautizo</th>
+              <th>Fecha de Bautizo</th>
+              <th>Fecha de sacramento</th>
+              <th>Presbítero</th>
+              <th>Libro</th>
+              <th>Página</th>
+              <th>Partida</th>
+              <th>Notas adicionales</th>
+              <th colspan="2">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ form.nombre }}</td>
+              <td>{{ form.sexo }}</td>
+              <td>{{ form.padre }}</td>
+              <td>{{ form.madre }}</td>
+              <td>{{ form.padrino_madrina }}</td>
+              <td>{{ form.ciudad_bautizo }}</td>
+              <td>{{ form.parroquia_bautizo }}</td>
+              <td>{{ form.fecha_bautizo }}</td>
+              <td>{{ form.fecha_sacramento }}</td>
+              <td>{{ form.presbitero }}</td>
+              <td>{{ form.libro }}</td>
+              <td>{{ form.pagina }}</td>
+              <td>{{ form.partida }}</td>
+              <td>{{ form.notas }}</td>
+              <td>
+                <button class="btn-1">Filtrar campos</button>
+              </td>
+              <td>
+                <a class="btn-1" href="{% url 'confirmaciones' %}">Limpiar campos</a>
+              </td>
+            </tr>
 
-<a href="{% url 'crear_confirmacion' %}">Crear nueva confirmación</a>
-
-<form action="{% url 'confirmaciones' %}" method="POST">
-  {% csrf_token %}
-
-  <table>
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Sexo</th>
-        <th>Padre</th>
-        <th>Madre</th>
-        <th>Padrino/Madrina</th>
-        <th>Ciudad de Bautizo</th>
-        <th>Parroquia de Bautizo</th>
-        <th>Fecha de Bautizo</th>
-        <th>Fecha de sacramento</th>
-        <th>Presbítero</th>
-        <th>Libro</th>
-        <th>Página</th>
-        <th>Partida</th>
-        <th>Notas adicionales</th>
-        <th colspan="2">Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>{{ form.nombre }}</td>
-        <td>{{ form.sexo }}</td>
-        <td>{{ form.padre }}</td>
-        <td>{{ form.madre }}</td>
-        <td>{{ form.padrino_madrina }}</td>
-        <td>{{ form.ciudad_bautizo }}</td>
-        <td>{{ form.parroquia_bautizo }}</td>
-        <td>{{ form.fecha_bautizo }}</td>
-        <td>{{ form.fecha_sacramento }}</td>
-        <td>{{ form.presbitero }}</td>
-        <td>{{ form.libro }}</td>
-        <td>{{ form.pagina }}</td>
-        <td>{{ form.partida }}</td>
-        <td>{{ form.notas }}</td>
-        <td>
-          <button>Filtrar campos</button>
-        </td>
-        <td>
-          <a class="btn-1" href="{% url 'confirmaciones' %}">Limpiar campos</a>
-        </td>
-      </tr>
-
-      {% for item in confirmaciones %}
-      <tr>
-        <td>{{ item.nombre }}</td>
-        <td>{% if item.sexo %} Mujer {% else %} Hombre {% endif %}</td>
-        <td>{{ item.padre }}</td>
-        <td>{{ item.madre }}</td>
-        <td>{{ item.padrino_madrina }}</td>
-        <td>{{ item.ciudad_bautizo }}</td>
-        <td>{{ item.parroquia_bautizo }}</td>
-        <td>{{ item.fecha_bautizo }}</td>
-        <td>{{ item.fecha_sacramento }}</td>
-        <td>{{ item.presbitero }}</td>
-        <td>{{ item.libro }}</td>
-        <td>{{ item.pagina }}</td>
-        <td>{{ item.partida }}</td>
-        <td>{{ item.notas }}</td>
-        <td>
-          <a class="btn-2" href="{% url 'editar_confirmacion' item.id %}">Editar</a>
-        </td>
-        <td>
-          <a class="btn-3" href="{% url 'eliminar_confirmacion' item.id %}">Eliminar</a>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</form>
-
+            {% for item in confirmaciones %}
+              <tr>
+                <td>{{ item.nombre }}</td>
+                <td>
+                  {% if item.sexo %}
+                    Mujer
+                  {% else %}
+                    Hombre
+                  {% endif %}
+                </td>
+                <td>{{ item.padre }}</td>
+                <td>{{ item.madre }}</td>
+                <td>{{ item.padrino_madrina }}</td>
+                <td>{{ item.ciudad_bautizo }}</td>
+                <td>{{ item.parroquia_bautizo }}</td>
+                <td>{{ item.fecha_bautizo }}</td>
+                <td>{{ item.fecha_sacramento }}</td>
+                <td>{{ item.presbitero }}</td>
+                <td>{{ item.libro }}</td>
+                <td>{{ item.pagina }}</td>
+                <td>{{ item.partida }}</td>
+                <td>{{ item.notas }}</td>
+                <td>
+                  <a class="btn-2" href="{% url 'editar_confirmacion' item.id %}">Editar</a>
+                </td>
+                <td>
+                  <a class="btn-3" href="{% url 'eliminar_confirmacion' item.id %}">Eliminar</a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </form>
+    </div>
+  </div>
 {% endblock %}

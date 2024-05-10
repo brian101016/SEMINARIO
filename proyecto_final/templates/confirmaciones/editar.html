@@ -1,15 +1,18 @@
-{% extends "base_generic.html" %} {% block content %}
+{% extends 'base_generic.html' %} {% block content %}
+  {% block title %}
+    <title>Página de Confirmaciones</title>
+  {% endblock %}
 
-<h1>Página de Confirmaciones</h1>
+  <h2 class="title-crud">Editar confirmación</h2>
 
-<h2>Editar confirmación</h2>
+  <div class="box-form">
+    <form action="{% url 'editar_confirmacion' id %}" method="POST">
+      {% csrf_token %} {{ form }}
 
-<a href="{% url 'confirmaciones' %}">Regresar</a>
-
-<form action="{% url 'editar_confirmacion' id %}" method="POST">
-  {% csrf_token %} {{ form }}
-
-  <button>Guardar cambios</button>
-</form>
-
+      <div class="two-btn">
+        <a class="btn-4" href="{% url 'confirmaciones' %}">Regresar</a>
+        <button class="btn-1">Guardar cambios</button>
+      </div>
+    </form>
+  </div>
 {% endblock %}

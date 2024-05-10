@@ -1,15 +1,19 @@
-{% extends "base_generic.html" %} {% block content %}
+{% extends 'base_generic.html' %} {% block content %}
+  {% block title %}
+    <title>Página de Matrimonio</title>
+  {% endblock %}
 
-<h1>Página de Matrimonios</h1>
+  <h2 class="title-crud">Crear matrimonio</h2>
 
-<h2>Crear matrimonio</h2>
-
-<a href="{% url 'matrimonios' %}">Regresar</a>
-
-<form action="{% url 'crear_matrimonio' %}" method="POST">
-  {% csrf_token %} {{ form }}
-
-  <button>Crear nuevo registro</button>
-</form>
-
+  
+  <div class="box-form">
+    <form action="{% url 'crear_matrimonio' %}" method="POST">
+      {% csrf_token %} {{ form }}
+      
+      <div class="two-btn">
+        <a class="btn-4" href="{% url 'matrimonios' %}">Regresar</a>
+        <button class="btn-1">Crear nuevo registro</button>
+      </div>
+    </form>
+  </div>
 {% endblock %}

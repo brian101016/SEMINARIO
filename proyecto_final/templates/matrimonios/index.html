@@ -1,84 +1,88 @@
-{% extends "base_generic.html" %} {% block content %}
+{% extends 'base_generic.html' %} {% block content %}
+  {% block title %}
+    <title>Página de Matrimonio</title>
+  {% endblock %}
 
-<h1>Página de Matrimonios</h1>
+  <div class="container">
+    <div class="flex-h2-btn">
+      <h2>Matrimonios</h2>
+      <button class="btn-create"><a href="{% url 'crear_matrimonio' %}">Crear nuevo matrimonio</a></button>
+    </div>
+    <div class="table-container">
+      <form action="{% url 'matrimonios' %}" method="POST">
+        {% csrf_token %}
 
-<h2>Tabla de matrimonios</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Novio</th>
+              <th>Novia</th>
+              <th>Domicilio</th>
+              <th>Ciudad de sacramento</th>
+              <th>Padres del novio</th>
+              <th>Padres de la novia</th>
+              <th>Testigos</th>
+              <th>Presentación matrimonial</th>
+              <th>Fecha de sacramento</th>
+              <th>Presbítero</th>
+              <th>Libro</th>
+              <th>Página</th>
+              <th>Partida</th>
+              <th>Notas adicionales</th>
+              <th colspan="2">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ form.novio }}</td>
+              <td>{{ form.novia }}</td>
+              <td>{{ form.domicilio }}</td>
+              <td>{{ form.ciudad_sacramento }}</td>
+              <td>{{ form.padres_novio }}</td>
+              <td>{{ form.padres_novia }}</td>
+              <td>{{ form.testigos }}</td>
+              <td>{{ form.presentacion }}</td>
+              <td>{{ form.fecha_sacramento }}</td>
+              <td>{{ form.presbitero }}</td>
+              <td>{{ form.libro }}</td>
+              <td>{{ form.pagina }}</td>
+              <td>{{ form.partida }}</td>
+              <td>{{ form.notas }}</td>
+              <td>
+                <button class="btn-1">Filtrar campos</button>
+              </td>
+              <td>
+                <a class="btn-1" href="{% url 'matrimonios' %}">Limpiar campos</a>
+              </td>
+            </tr>
 
-<a href="{% url 'crear_matrimonio' %}">Crear nuevo matrimonio</a>
-
-<form action="{% url 'matrimonios' %}" method="POST">
-  {% csrf_token %}
-
-  <table>
-    <thead>
-      <tr>
-        <th>Novio</th>
-        <th>Novia</th>
-        <th>Domicilio</th>
-        <th>Ciudad de sacramento</th>
-        <th>Padres del novio</th>
-        <th>Padres de la novia</th>
-        <th>Testigos</th>
-        <th>Presentación matrimonial</th>
-        <th>Fecha de sacramento</th>
-        <th>Presbítero</th>
-        <th>Libro</th>
-        <th>Página</th>
-        <th>Partida</th>
-        <th>Notas adicionales</th>
-        <th colspan="2">Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>{{ form.novio }}</td>
-        <td>{{ form.novia }}</td>
-        <td>{{ form.domicilio }}</td>
-        <td>{{ form.ciudad_sacramento }}</td>
-        <td>{{ form.padres_novio }}</td>
-        <td>{{ form.padres_novia }}</td>
-        <td>{{ form.testigos }}</td>
-        <td>{{ form.presentacion }}</td>
-        <td>{{ form.fecha_sacramento }}</td>
-        <td>{{ form.presbitero }}</td>
-        <td>{{ form.libro }}</td>
-        <td>{{ form.pagina }}</td>
-        <td>{{ form.partida }}</td>
-        <td>{{ form.notas }}</td>
-        <td>
-          <button>Filtrar campos</button>
-        </td>
-        <td>
-          <a class="btn-1" href="{% url 'matrimonios' %}">Limpiar campos</a>
-        </td>
-      </tr>
-
-      {% for item in matrimonios %}
-      <tr>
-        <td>{{ item.novio }}</td>
-        <td>{{ item.novia }}</td>
-        <td>{{ item.domicilio }}</td>
-        <td>{{ item.ciudad_sacramento }}</td>
-        <td>{{ item.padres_novio }}</td>
-        <td>{{ item.padres_novia }}</td>
-        <td>{{ item.testigos }}</td>
-        <td>{{ item.presentacion }}</td>
-        <td>{{ item.fecha_sacramento }}</td>
-        <td>{{ item.presbitero }}</td>
-        <td>{{ item.libro }}</td>
-        <td>{{ item.pagina }}</td>
-        <td>{{ item.partida }}</td>
-        <td>{{ item.notas }}</td>
-        <td>
-          <a class="btn-2" href="{% url 'editar_matrimonio' item.id %}">Editar</a>
-        </td>
-        <td>
-          <a class="btn-3" href="{% url 'eliminar_matrimonio' item.id %}">Borrar</a>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</form>
-
+            {% for item in matrimonios %}
+              <tr>
+                <td>{{ item.novio }}</td>
+                <td>{{ item.novia }}</td>
+                <td>{{ item.domicilio }}</td>
+                <td>{{ item.ciudad_sacramento }}</td>
+                <td>{{ item.padres_novio }}</td>
+                <td>{{ item.padres_novia }}</td>
+                <td>{{ item.testigos }}</td>
+                <td>{{ item.presentacion }}</td>
+                <td>{{ item.fecha_sacramento }}</td>
+                <td>{{ item.presbitero }}</td>
+                <td>{{ item.libro }}</td>
+                <td>{{ item.pagina }}</td>
+                <td>{{ item.partida }}</td>
+                <td>{{ item.notas }}</td>
+                <td>
+                  <a class="btn-2" href="{% url 'editar_matrimonio' item.id %}">Editar</a>
+                </td>
+                <td>
+                  <a class="btn-3" href="{% url 'eliminar_matrimonio' item.id %}">Borrar</a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </form>
+    </div>
+  </div>
 {% endblock %}
