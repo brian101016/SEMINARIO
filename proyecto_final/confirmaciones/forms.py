@@ -20,7 +20,8 @@ class BuscarConfirmacionForm(BuscarSacramentoForm):
     padrino_madrina = forms.CharField(required=False)
     ciudad_bautizo = forms.CharField(required=False)
     parroquia_bautizo = forms.CharField(required=False)
-    fecha_bautizo = FechaAnteriorField(required=False)
+    fecha_bautizo_min = FechaAnteriorField(required=False)
+    fecha_bautizo_max = FechaAnteriorField(required=False)
 
 
 class ConfirmacionForm(SacramentoForm):
@@ -31,7 +32,22 @@ class ConfirmacionForm(SacramentoForm):
 
     class Meta(SacramentoForm.Meta):
         model = Confirmacion
-        fields = "__all__"
+        fields = [
+            "nombre",
+            "sexo",
+            "padre",
+            "madre",
+            "padrino_madrina",
+            "ciudad_bautizo",
+            "parroquia_bautizo",
+            "fecha_bautizo",
+            "fecha_sacramento",
+            "presbitero",
+            "libro",
+            "pagina",
+            "partida",
+            "notas",
+        ]
         labels = {
             "nombre": "Nombre completo",
             "padre": "Nombre completo del padre",

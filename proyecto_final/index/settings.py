@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-s-2-tz^r*$s=k!2k_nn35bf#zv2(xq4kzcz&%8n!pp7czskw!w"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True  # False WIP
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []  # [".localhost", "127.0.0.1", "[::1]"]
 
 
 # Application definition
@@ -59,7 +59,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = "index.urls"
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
-LOGIN_URL = "usuarios/login/"
+LOGIN_URL = "/usuarios/login"
 LOGIN_REDIRECT_URL = "/"
 
 TEMPLATES = [

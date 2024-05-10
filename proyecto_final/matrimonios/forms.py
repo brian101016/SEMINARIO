@@ -26,7 +26,22 @@ class BuscarMatrimonioForm(BuscarSacramentoForm):
 class MatrimonioForm(SacramentoForm):
     class Meta(SacramentoForm.Meta):
         model = Matrimonio
-        fields = "__all__"
+        fields = [
+            "novio",
+            "novia",
+            "domicilio",
+            "ciudad_sacramento",
+            "padres_novio",
+            "padres_novia",
+            "testigos",
+            "presentacion",
+            "fecha_sacramento",
+            "presbitero",
+            "libro",
+            "pagina",
+            "partida",
+            "notas",
+        ]
         labels = {
             "novio": "Novio",
             "novia": "Novia",

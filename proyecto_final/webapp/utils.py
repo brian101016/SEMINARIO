@@ -116,11 +116,15 @@ class SacramentoForm(ModelForm):
 
 
 class BuscarSacramentoForm(Form):
-    fecha_sacramento = FechaAnteriorField(required=False)
+    fecha_sacramento_min = FechaAnteriorField(required=False)
+    fecha_sacramento_max = FechaAnteriorField(required=False)
     presbitero = CharField(required=False)
-    libro = IntegerField(min_value=0, required=False)
-    pagina = IntegerField(min_value=0, required=False)
-    partida = IntegerField(min_value=0, required=False)
+    libro_min = IntegerField(min_value=0, required=False)
+    libro_max = IntegerField(min_value=0, required=False)
+    pagina_min = IntegerField(min_value=0, required=False)
+    pagina_max = IntegerField(min_value=0, required=False)
+    partida_min = IntegerField(min_value=0, required=False)
+    partida_max = IntegerField(min_value=0, required=False)
     notas = CharField(required=False)
 
 

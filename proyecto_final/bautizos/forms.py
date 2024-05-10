@@ -15,7 +15,8 @@ from webapp.utils import (
 class BuscarBautizoForm(BuscarSacramentoForm):
     nombre = forms.CharField(required=False)
     sexo = SexoBuscarField()
-    fecha_nacimiento = FechaAnteriorField(required=False)
+    fecha_nacimiento_min = FechaAnteriorField(required=False)
+    fecha_nacimiento_max = FechaAnteriorField(required=False)
     ciudad_nacimiento = forms.CharField(required=False)
     folio_acta_nacimiento = forms.CharField(required=False)
     padre = forms.CharField(required=False)
@@ -35,7 +36,26 @@ class BautizoForm(SacramentoForm):
 
     class Meta(SacramentoForm.Meta):
         model = Bautizo
-        fields = "__all__"
+        fields = [
+            "nombre",
+            "sexo",
+            "fecha_nacimiento",
+            "ciudad_nacimiento",
+            "folio_acta_nacimiento",
+            "padre",
+            "madre",
+            "abuelos_paternos",
+            "abuelos_maternos",
+            "padrino",
+            "madrina",
+            "notas_marginales",
+            "fecha_sacramento",
+            "presbitero",
+            "libro",
+            "pagina",
+            "partida",
+            "notas",
+        ]
         labels = {
             "nombre": "Nombre completo del bebé",
             "ciudad_nacimiento": "Ciudad y lugar de nacimiento",
